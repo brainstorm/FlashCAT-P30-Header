@@ -1,0 +1,4 @@
+(fp_lib_table
+	(version 7)
+	(lib (name "flashcat_p30")(type "KiCad")(uri "${KIPRJMOD}/lib/flashcat_p30.pretty")(options "")(descr "FlashCAT P30 adapter project footprints"))
+)
