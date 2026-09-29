@@ -1,0 +1,10 @@
+Comment,Designator,Footprint,Manufacturer Part,Qty
+1u,"C1,C2",C_0603_1608Metric,GRM188R61E105KA12D,2
+10u,"C3,C4",C_0603_1608Metric,GRM188R61A106KE69D,2
+100n,"C5,C6,C7,C8,C9",C_0603_1608Metric,GRM188R71C104KA01D,5
+EC56 J1 (control/data),J1,PinHeader_2x14_P2.00mm_Vertical,Samtec TMM-114-01-G-D (or any 2x14 2.00 mm male header),1
+EC56 J2 (address),J2,PinHeader_2x14_P2.00mm_Vertical,Samtec TMM-114-01-G-D (or any 2x14 2.00 mm male header),1
+10k,R1,R_0603_1608Metric,RC0603FR-0710KL,1
+4k7,R2,R_0603_1608Metric,RC0603FR-074K7L,1
+BGA-64 socket Sensata CBG064-087G,U1,Sensata_CBG064-087G,CBG064-087G,1
+TLV75518PDBV,U2,SOT-23-5,TLV75518PDBVR,1
