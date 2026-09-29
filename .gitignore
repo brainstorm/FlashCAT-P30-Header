@@ -1,0 +1,38 @@
+# --- build / tooling output -------------------------------------------------
+build/
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# --- KiCad local state, caches and backups ----------------------------------
+*-backups/
+.history/
+*.kicad_prl
+fp-info-cache
+_autosave-*
+~*.lck
+*.lck
+*.bak
+*.kicad_sch-bak
+*.kicad_pcb-bak
+\#auto_saved_files\#
+
+# --- private / third-party material (not redistributable) -------------------
+# email thread with the FlashCAT author, the Eagle footprint he sent, the
+# vendor socket drawing and local archives
+*Mail*.pdf
+Eagle Footprint.txt
+CBG064-087G.pdf
+*.tbz2
+*.tar.*
+*.zip
+!hardware/fab/flashcat_p30-gerbers.zip
+
+# --- editors / OS ------------------------------------------------------------
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+*~
