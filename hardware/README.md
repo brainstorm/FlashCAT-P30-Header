@@ -37,13 +37,14 @@ hardware/
 | P30 ball(s) | Signal | Connected to |
 |---|---|---|
 | A1…A25 | address (A1 = LSB, word address) | EC header **A1…A25** (header A0 unused) |
+| B8 / H1 | RFU on 130 nm parts; **A26 / A27** on Micron P30-65nm 1 / 2 Gbit | EC header **A26/RB2 / A27/RB1** |
 | DQ0…DQ15 | data | EC header DQ0…DQ15 |
 | CE#, OE#, WE# | control | EC header CE0, OE, WE (driven directly, no pull-ups) |
 | RST# | reset | 10k to VCC + 100 nF to GND (~1 ms power-on reset) |
 | WP# | write protect | tied to header VCC (lock-down disabled) |
 | ADV#, CLK | sync-burst inputs | GND (asynchronous mode, per datasheet) |
 | WAIT | wait/ready | EC header **RB0**, 4.7k pull-up to VCC |
-| RFU | – | open |
+| RFU (E8, F1, G2) | – | open |
 | VCC ×2 | core 1.7–2.0 V | **+1V8** from U2 (TLV75518) – the LDO feeds only these |
 | VPP | program/erase supply | header **VCC** (3.3 V) |
 | VCCQ ×3 | I/O 1.7–3.6 V | header **VCC** (header VIO unused) |
@@ -62,18 +63,18 @@ schematic [`SCM_TSOP56_D.png`](https://www.embeddedcomputers.net/products/Parall
 | CLK, ADV# | GND | GND |
 | WP# | tied to VCC | tied to VCC |
 | RST# | tied to VCC | 10k pull-up to VCC + 100 nF (~1 ms power-on reset) |
-| TSOP pin 13 (2nd VCC) / pin 28 (VSS) | wired to header A27/RB1 and A26/RB2 (see note) | n/a: both Easy BGA VCC balls on the LDO, all VSS balls on GND |
+| TSOP pin 13 / pin 28 | wired to header A27/RB1 and A26/RB2 (see note) | Easy BGA B8 → A26/RB2, H1 → A27/RB1 (same idea) |
 | VPP | VCC rail | header VCC |
 | CE#, WE# pull-ups | none | none |
-| Address | P30 A1 → header A1/CE2 … A25 → A25/RB3 | same |
+| Address | P30 A1 → header A1/CE2 … A25 → A25/RB3 | same, plus A26/A27 |
 
 * **Verified in the Type-D schematic:** header VCC (pin 28) → MIC5504 VIN and
   EN, VOUT (P$5) → C3 1 µF → TSOP pin 33 **VCC**, part marked "1.8V LDO".
-  Note: on that drawing TSOP pin 13 (the P30's second VCC pin) is labelled
-  `VCC_A27` and routed to header A27/RB1, and pin 28 (VSS on P30) to header
-  A26/RB2 – i.e. they are presumably driven by the firmware (or the symbol is
-  shared with another 28F variant). This board does not copy that; it follows
-  the P30 datasheet. Worth confirming with the author.
+  Note: on that drawing TSOP pin 13 is labelled `VCC_A27` and routed to
+  header A27/RB1, and pin 28 to header A26/RB2. That matches Micron's
+  **P30-65nm** TSOP pinout (512 Mbit–1 Gbit): pin 28 is **A26** there (VSS on
+  the 130 nm parts) and pin 13 became RFU (VCC on 130 nm). The Easy BGA
+  equivalent is below.
 * **Is the LDO needed? Yes.** None of the other EC adapters carry a regulator
   because they are all for 3 V (or 5 V) core parts; the only adapter on the
   page with an LDO is the P30 one, for exactly the reason below. (The other
@@ -85,6 +86,16 @@ schematic [`SCM_TSOP56_D.png`](https://www.embeddedcomputers.net/products/Parall
   `E_EXPIO_WRADDR.Parallel_X16`). P30 names its LSB `A1`, so `An` → header
   `An` — the "same pin connection as the TSOP56" the author mentioned.
   A25 is wired so 512 Mbit dual-die P30 parts work too.
+* **Micron P30-65nm (1 Gbit / 2 Gbit)** uses the same Easy BGA ballout but
+  puts **A26 on ball B8** and **A27 on ball H1** (die select on the 2 Gbit
+  dual-die part), balls that are RFU on the 130 nm Intel/Numonyx datasheet.
+  Both are wired straight to header A26/RB2 and A27/RB1 so `PC28F00AP30…`
+  and `PC28F00BP30…` parts work. On 130 nm parts those balls are unused
+  inside the package, so the programmer driving them is expected to be
+  harmless (the datasheet asks to treat RFU as do-not-connect, and EC's TSOP
+  Type-D adapter makes the same trade-off). Needs FlashcatUSB to know the
+  part; 65 nm parts also need ≥ 300 µs from VCC valid to RST# high, which
+  the ~1 ms RC covers.
 * **Core voltage**: P30 `VCC` is 1.7–2.0 V with an **absolute maximum of 2.5 V**,
   while the header VCC runs at 3.3 V for these adapters (the author's MIC5504
   needs ≥ 2.5 V in, so their design assumes 3.3 V too). Wiring `VCC` straight
@@ -230,6 +241,9 @@ checks and renders, not a manufacturer-accurate model.
 
 * Intel StrataFlash Embedded Memory (P30) datasheet, order 306666 –
   [PDF](https://www.dataman.com/media/datasheet/Intel/P30Family.pdf)
+* Micron Parallel NOR Flash Embedded Memory (P30-65nm) 512Mb/1Gb/2Gb
+  datasheet (Easy BGA ballout with A26/A27) –
+  [PDF](https://www.mouser.com/datasheet/2/12/P30_512M_Datasheet-1920645.pdf)
 * Sensata CBG064-087G BGA-64 socket –
   [product page](https://www.sockets-connectors.com/ic-socket/CBG064-087G-3/)
   (sales drawing CBG064-087G-3 rev A, available from Sensata / distributors)
