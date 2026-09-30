@@ -13,6 +13,11 @@ Sources:
     the author's own P30/P33 adapter: 1.8 V LDO from header VCC for the core,
     VCCQ from header VCC, header VIO unused, WAIT -> RB0 with 4.7k pull-up,
     CLK/ADV# to GND, P30 A1 -> header A1.
+  * Micron "Parallel NOR Flash Embedded Memory (P30-65nm)" 512Mb/1Gb/2Gb
+    datasheet, Figure 7: same Easy BGA ballout, but the balls that are RFU
+    on the 130 nm parts carry A26 (B8, 1Gb and up) and A27 (H1, 2Gb die
+    select).  They are wired straight to header A26/A27, as EC's TSOP-56
+    Type-D adapter does for the 65 nm TSOP pins.
   * FlashcatUSB software: x16 NOR uses WORD addressing on header A1..A27
     ("Parallel_X16 = 2 'Addressing is done A1-A27 (WORD ADDR)"), so P30
     address ball An goes straight to header An; header A0 is unused.
@@ -24,13 +29,13 @@ Sources:
 # ---------------------------------------------------------------------------
 P30_ROWS = {
     "A": ["A1", "A6", "A8", "VPP", "A13", "VCC", "A18", "A22"],
-    "B": ["A2", "VSS", "A9", "CE#", "A14", "A25", "A19", "RFU"],
+    "B": ["A2", "VSS", "A9", "CE#", "A14", "A25", "A19", "A26"],   # B8: RFU on 130 nm
     "C": ["A3", "A7", "A10", "A12", "A15", "WP#", "A20", "A21"],
     "D": ["A4", "A5", "A11", "RST#", "VCCQ", "VCCQ", "A16", "A17"],
     "E": ["DQ8", "DQ1", "DQ9", "DQ3", "DQ4", "CLK", "DQ15", "RFU"],
     "F": ["RFU", "DQ0", "DQ10", "DQ11", "DQ12", "ADV#", "WAIT", "OE#"],
     "G": ["A23", "RFU", "DQ2", "VCCQ", "DQ5", "DQ6", "DQ14", "WE#"],
-    "H": ["RFU", "VSS", "VCC", "VSS", "DQ13", "VSS", "DQ7", "A24"],
+    "H": ["A27", "VSS", "VCC", "VSS", "DQ13", "VSS", "DQ7", "A24"],   # H1: RFU on 130 nm
 }
 ROW_LETTERS = "ABCDEFGH"
 
@@ -118,10 +123,10 @@ def ec_net(sig):
         return base
     if base.startswith("A") and base[1:].isdigit():
         n = int(base[1:])
-        # P30 256 Mbit uses A1..A24; A25 selects the upper die on 512 Mbit
-        # dual-die parts, so wire it too.  A0 (byte address) is unused in
-        # x16 word mode, A26/A27 are beyond the largest P30.
-        return base if 1 <= n <= 25 else None
+        # P30 256 Mbit uses A1..A24, 512 Mbit adds A25, the 65 nm 1 Gbit
+        # adds A26 and the 2 Gbit dual-die part A27 (die select).  A0 (byte
+        # address) is unused in x16 word mode.
+        return base if 1 <= n <= 27 else None
     return {
         "GND": "GND",
         "VCC": "VCC_PROG",
@@ -174,8 +179,8 @@ def check():
         if n in ("VCC_PROG",):
             continue
         assert n in p30_nets, n
-    # 25 address + 16 data balls present
-    assert sum(1 for s in P30_BALLS.values() if s.startswith("A") and s[1:].isdigit()) == 25
+    # 27 address + 16 data balls present
+    assert sum(1 for s in P30_BALLS.values() if s.startswith("A") and s[1:].isdigit()) == 27
     assert sum(1 for s in P30_BALLS.values() if s.startswith("DQ")) == 16
 
 

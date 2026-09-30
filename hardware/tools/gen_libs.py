@@ -111,8 +111,8 @@ def p30_layout():
         by_sig.setdefault(sig, []).append(ball)
     lay = {}
     top = 30.48
-    # left: A1..A25
-    for i in range(1, 26):
+    # left: A1..A27
+    for i in range(1, 28):
         (ball,) = by_sig[f"A{i}"]
         lay[ball] = (-P30_HALF_W - P30_PIN_LEN, top - (i - 1) * 2.54, 0)
     # right: DQ0..DQ15, gap, controls

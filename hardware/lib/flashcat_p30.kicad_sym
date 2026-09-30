@@ -365,10 +365,10 @@
 					)
 				)
 			)
-			(pin no_connect line
-				(at 0 -40.64 90)
+			(pin input line
+				(at -17.78 -33.02 0)
 				(length 2.54)
-				(name "RFU"
+				(name "A26"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -798,7 +798,7 @@
 				)
 			)
 			(pin no_connect line
-				(at 2.54 -40.64 90)
+				(at 0 -40.64 90)
 				(length 2.54)
 				(name "RFU"
 					(effects
@@ -816,7 +816,7 @@
 				)
 			)
 			(pin no_connect line
-				(at 5.08 -40.64 90)
+				(at 2.54 -40.64 90)
 				(length 2.54)
 				(name "RFU"
 					(effects
@@ -978,7 +978,7 @@
 				)
 			)
 			(pin no_connect line
-				(at 7.62 -40.64 90)
+				(at 5.08 -40.64 90)
 				(length 2.54)
 				(name "RFU"
 					(effects
@@ -1103,10 +1103,10 @@
 					)
 				)
 			)
-			(pin no_connect line
-				(at 10.16 -40.64 90)
+			(pin input line
+				(at -17.78 -35.56 0)
 				(length 2.54)
-				(name "RFU"
+				(name "A27"
 					(effects
 						(font
 							(size 1.27 1.27)

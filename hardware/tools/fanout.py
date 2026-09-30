@@ -26,10 +26,10 @@ L, R, U, Dn = (-1, 0), (1, 0), (0, -1), (0, 1)
 F, B, I2 = "F.Cu", "B.Cu", "In2.Cu"
 ESCAPES = [
     # --- ring 1, F.Cu stubs
-    *[(b, F, None, U) for b in ("A8", "C8", "D8", "F8", "G8", "H8")],
+    *[(b, F, None, U) for b in ("A8", "B8", "C8", "D8", "F8", "G8", "H8")],
     *[(b, F, None, L) for b in ("A7", "A6", "A5", "A4", "A3", "A2", "A1")],
     *[(b, F, None, R) for b in ("H7", "H5", "H3")],
-    *[(b, F, None, Dn) for b in ("B1", "C1", "D1", "E1", "G1")],
+    *[(b, F, None, Dn) for b in ("B1", "C1", "D1", "E1", "G1", "H1")],
     # --- ring 2, F.Cu diagonal + channel
     *[(b, F, (-1, -1), L) for b in ("B7", "B6", "B5", "B4", "B3")],
     *[(b, F, (1, -1), R) for b in ("G6", "G5", "G4", "G3")],

@@ -284,7 +284,8 @@ def build():
            "   Pads of the socket footprint carry the same names; mapping remapped from the S29 footprint\n"
            "   supplied by Embedded Computers.\n"
            "2. x16 WORD addressing: FlashcatUSB drives header A1..A27 in x16 mode, so P30 A1 (LSB) -> header A1.\n"
-           "   Header A0 is unused. A25 is only used by 512 Mbit (dual-die) parts, A26/A27 are unused.\n"
+           "   Header A0 is unused. A25 is used by 512 Mbit parts; B8 = A26 (1 Gbit) and H1 = A27 (2 Gbit)\n"
+           "   only exist on Micron P30-65nm (RFU on 130 nm parts), wired as EC's TSOP-56 Type-D does.\n"
            "3. P30 VCC (core) is 1.7-2.0 V, ABS MAX 2.5 V. U2 makes 1.8 V from the programmer VCC:\n"
            "   programmer at 3.3 V -> regulated 1.8 V; programmer at 1.8 V -> U2 in dropout, ~1.78 V.\n"
            "   VCCQ (I/O, 1.7-3.6 V) is fed from header VCC, header VIO is unused (same as the EC P30\n"
@@ -293,7 +294,7 @@ def build():
            "5. RST#, WP# are not on the EC header. WP# is tied to header VCC (lock-down off, as the EC\n"
            "   TSOP-56 Type-D adapter); RST# is pulled up to header VCC with a ~1 ms power-on delay.\n"
            "   CE#, OE#, WE# are driven directly by the programmer (no pull-ups, as the EC adapters).\n"
-           "6. Unused EC header pins (VPP, VIO, CLE, ALE, RE/B#, DQS, A0, A26, A27) are left open.",
+           "6. Unused EC header pins (VPP, VIO, CLE, ALE, RE/B#, DQS, A0) are left open.",
            (25.4, 228.6), 1.524)
     return s
 

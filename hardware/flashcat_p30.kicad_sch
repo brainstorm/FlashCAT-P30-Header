@@ -376,10 +376,10 @@
 						)
 					)
 				)
-				(pin no_connect line
-					(at 0 -40.64 90)
+				(pin input line
+					(at -17.78 -33.02 0)
 					(length 2.54)
-					(name "RFU"
+					(name "A26"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -809,7 +809,7 @@
 					)
 				)
 				(pin no_connect line
-					(at 2.54 -40.64 90)
+					(at 0 -40.64 90)
 					(length 2.54)
 					(name "RFU"
 						(effects
@@ -827,7 +827,7 @@
 					)
 				)
 				(pin no_connect line
-					(at 5.08 -40.64 90)
+					(at 2.54 -40.64 90)
 					(length 2.54)
 					(name "RFU"
 						(effects
@@ -989,7 +989,7 @@
 					)
 				)
 				(pin no_connect line
-					(at 7.62 -40.64 90)
+					(at 5.08 -40.64 90)
 					(length 2.54)
 					(name "RFU"
 						(effects
@@ -1114,10 +1114,10 @@
 						)
 					)
 				)
-				(pin no_connect line
-					(at 10.16 -40.64 90)
+				(pin input line
+					(at -17.78 -35.56 0)
 					(length 2.54)
-					(name "RFU"
+					(name "A27"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -3931,9 +3931,25 @@
 		)
 		(uuid "35703f57-2ad2-53f1-b201-2d21c9941095")
 	)
-	(no_connect
-		(at 215.9 182.88)
-		(uuid "bd421b1b-3b9e-5a13-ad73-9d543c85c2ec")
+	(wire
+		(pts
+			(xy 198.12 175.26) (xy 193.04 175.26)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c5ee7796-c9db-51c1-a21a-7e056541d872")
+	)
+	(label "A26"
+		(at 193.04 175.26 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "969bc824-2a3d-5066-ae1a-f9f39dc0cf48")
 	)
 	(wire
 		(pts
@@ -4316,12 +4332,12 @@
 		(uuid "e2855646-2375-527c-b276-428369c7ba4c")
 	)
 	(no_connect
-		(at 218.44 182.88)
-		(uuid "ef7b5027-a911-5824-9ae7-4436c9aacaf6")
+		(at 215.9 182.88)
+		(uuid "bd421b1b-3b9e-5a13-ad73-9d543c85c2ec")
 	)
 	(no_connect
-		(at 220.98 182.88)
-		(uuid "3603e6c1-521a-549f-b4de-ba0c18a6abdf")
+		(at 218.44 182.88)
+		(uuid "ef7b5027-a911-5824-9ae7-4436c9aacaf6")
 	)
 	(wire
 		(pts
@@ -4464,8 +4480,8 @@
 		(uuid "66261f0a-6c02-5b9e-817a-7b6d584847e1")
 	)
 	(no_connect
-		(at 223.52 182.88)
-		(uuid "df3cd525-eb78-52e4-8fe5-7c78d98c2044")
+		(at 220.98 182.88)
+		(uuid "3603e6c1-521a-549f-b4de-ba0c18a6abdf")
 	)
 	(wire
 		(pts
@@ -4567,9 +4583,25 @@
 		)
 		(uuid "26ca2af1-2213-54ac-8f17-4fad2dcaee51")
 	)
-	(no_connect
-		(at 226.06 182.88)
-		(uuid "32629d14-6aa5-5fd0-83de-471b28476466")
+	(wire
+		(pts
+			(xy 198.12 177.8) (xy 193.04 177.8)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d9cf5de8-85de-5ca8-9f7c-106fb24d8bf4")
+	)
+	(label "A27"
+		(at 193.04 177.8 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "216611c3-6bec-5223-9884-8d57937ec211")
 	)
 	(wire
 		(pts
@@ -6072,17 +6104,49 @@
 			)
 		)
 	)
-	(no_connect
-		(at 111.76 163.83)
-		(uuid "9e376a23-a593-5d70-a7ea-5b415da8eda8")
+	(wire
+		(pts
+			(xy 111.76 163.83) (xy 116.84 163.83)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "47efa764-7e45-5800-80cd-ac6a652b687f")
+	)
+	(label "A27"
+		(at 116.84 163.83 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "24ecfb5d-b1f0-5394-86e3-e8de83bcab2e")
 	)
 	(no_connect
 		(at 86.36 163.83)
 		(uuid "e5415ef1-d0fc-5dcc-96c2-771b5fa1ebec")
 	)
-	(no_connect
-		(at 111.76 166.37)
-		(uuid "db268d54-a2d8-5ebd-903b-b5f3341d3fe6")
+	(wire
+		(pts
+			(xy 111.76 166.37) (xy 116.84 166.37)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "10d3e612-3f57-590f-8d72-9efb459e3d62")
+	)
+	(label "A26"
+		(at 116.84 166.37 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "d286ea3e-b73f-5c50-a730-712e0c2ef5d7")
 	)
 	(wire
 		(pts
@@ -9561,7 +9625,7 @@
 		)
 		(uuid "6286e626-bfe8-5c67-ae75-064a4149fee5")
 	)
-	(text "NOTES\n1. Ball names follow the P30 datasheet (row letter A-H along the 13 mm side, column number 1-8).\n   Pads of the socket footprint carry the same names; mapping remapped from the S29 footprint\n   supplied by Embedded Computers.\n2. x16 WORD addressing: FlashcatUSB drives header A1..A27 in x16 mode, so P30 A1 (LSB) -> header A1.\n   Header A0 is unused. A25 is only used by 512 Mbit (dual-die) parts, A26/A27 are unused.\n3. P30 VCC (core) is 1.7-2.0 V, ABS MAX 2.5 V. U2 makes 1.8 V from the programmer VCC:\n   programmer at 3.3 V -> regulated 1.8 V; programmer at 1.8 V -> U2 in dropout, ~1.78 V.\n   VCCQ (I/O, 1.7-3.6 V) is fed from header VCC, header VIO is unused (same as the EC P30\n   TSOP-56 Type-D adapter). VPP (VPPL 0.9-3.6 V) is tied to header VCC; U2 feeds VCC only.\n4. ADV# and CLK tied to GND (asynchronous mode). WAIT -> header RB0 with 4.7k pull-up. RFU open.\n5. RST#, WP# are not on the EC header. WP# is tied to header VCC (lock-down off, as the EC\n   TSOP-56 Type-D adapter); RST# is pulled up to header VCC with a ~1 ms power-on delay.\n   CE#, OE#, WE# are driven directly by the programmer (no pull-ups, as the EC adapters).\n6. Unused EC header pins (VPP, VIO, CLE, ALE, RE/B#, DQS, A0, A26, A27) are left open."
+	(text "NOTES\n1. Ball names follow the P30 datasheet (row letter A-H along the 13 mm side, column number 1-8).\n   Pads of the socket footprint carry the same names; mapping remapped from the S29 footprint\n   supplied by Embedded Computers.\n2. x16 WORD addressing: FlashcatUSB drives header A1..A27 in x16 mode, so P30 A1 (LSB) -> header A1.\n   Header A0 is unused. A25 is used by 512 Mbit parts; B8 = A26 (1 Gbit) and H1 = A27 (2 Gbit)\n   only exist on Micron P30-65nm (RFU on 130 nm parts), wired as EC's TSOP-56 Type-D does.\n3. P30 VCC (core) is 1.7-2.0 V, ABS MAX 2.5 V. U2 makes 1.8 V from the programmer VCC:\n   programmer at 3.3 V -> regulated 1.8 V; programmer at 1.8 V -> U2 in dropout, ~1.78 V.\n   VCCQ (I/O, 1.7-3.6 V) is fed from header VCC, header VIO is unused (same as the EC P30\n   TSOP-56 Type-D adapter). VPP (VPPL 0.9-3.6 V) is tied to header VCC; U2 feeds VCC only.\n4. ADV# and CLK tied to GND (asynchronous mode). WAIT -> header RB0 with 4.7k pull-up. RFU open.\n5. RST#, WP# are not on the EC header. WP# is tied to header VCC (lock-down off, as the EC\n   TSOP-56 Type-D adapter); RST# is pulled up to header VCC with a ~1 ms power-on delay.\n   CE#, OE#, WE# are driven directly by the programmer (no pull-ups, as the EC adapters).\n6. Unused EC header pins (VPP, VIO, CLE, ALE, RE/B#, DQS, A0) are left open."
 		(exclude_from_sim no)
 		(at 25.4 228.6 0)
 		(effects
