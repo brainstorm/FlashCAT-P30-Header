@@ -6,5 +6,5 @@
 "J2","EC56 J2 (address)","Connector_PinHeader_2.00mm:PinHeader_2x14_P2.00mm_Vertical","Samtec TMM-114-01-G-D (or any 2x14 2.00 mm male header)","","1"
 "R1","10k","Resistor_SMD:R_0603_1608Metric","RC0603FR-0710KL","","1"
 "R2","4k7","Resistor_SMD:R_0603_1608Metric","RC0603FR-074K7L","","1"
-"U1","PC28F256P30T85","flashcat_p30:Sensata_CBG064-087G","CBG064-087G","Sensata Technologies","1"
+"U1","PC28F256P30T85","flashcat_p30:HMILU_BGA64-1.0-TP21NS","BGA64-1.0-TP21NS","HMILU","1"
 "U2","TLV75518PDBV","Package_TO_SOT_SMD:SOT-23-5","TLV75518PDBVR","Texas Instruments","1"

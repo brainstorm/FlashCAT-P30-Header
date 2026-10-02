@@ -5,17 +5,17 @@
       "Application": "Pcbnew",
       "Version": "10.0.6-10.0.6~ubuntu26.04.1"
     },
-    "CreationDate": "2026-09-30T21:19:09+02:00"
+    "CreationDate": "2026-10-02T21:59:32+02:00"
   },
   "GeneralSpecs": {
     "ProjectId": {
       "Name": "flashcat_p30",
       "GUID": "666c6173-6863-4617-945f-7033302e6b69",
-      "Revision": "B"
+      "Revision": "C"
     },
     "Size": {
       "X": 51.1,
-      "Y": 37.1
+      "Y": 33.1
     },
     "LayerNumber": 4,
     "BoardThickness": 1.6,
