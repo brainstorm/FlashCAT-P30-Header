@@ -54,7 +54,7 @@ def main():
         w.writerow(["Comment", "Designator", "Footprint", "Manufacturer Part", "Qty"])
         for r in csv.DictReader(f):
             # U1 is the socket (the P30 itself is the part being programmed)
-            comment = "BGA-64 socket Sensata CBG064-087G" if r["Reference"] == "U1" else r["Value"]
+            comment = "BGA-64 socket HMILU BGA64-1.0-TP21NS" if r["Reference"] == "U1" else r["Value"]
             w.writerow([comment, r["Reference"], r["Footprint"].split(":")[-1], r["MPN"], r["Qty"]])
 
     # placement

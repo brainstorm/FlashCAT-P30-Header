@@ -213,8 +213,8 @@ def build():
 
     # ---- U1: P30 in socket -------------------------------------------------
     u1 = s.symbol("P30_EasyBGA64_Socket", "U1", "PC28F256P30T85", (215.9, 142.24),
-                  fields={"Socket": "Sensata CBG064-087G", "MPN": "CBG064-087G",
-                          "Manufacturer": "Sensata Technologies"},
+                  fields={"Socket": "HMILU BGA64-1.0-TP21NS", "MPN": "BGA64-1.0-TP21NS",
+                          "Manufacturer": "HMILU"},
                   prop_pos=((198.12, 92.71), (198.12, 196.85)))
     groups = {}
     for ball, pos in u1.items():
@@ -278,7 +278,7 @@ def build():
 
     # ---- notes ---------------------------------------------------------------
     s.text("FlashCAT (FlashcatUSB Mach1 / XPORT) adapter for Intel/Micron P30 StrataFlash in 64-ball Easy BGA\n"
-           "(e.g. PC28F256P30T85 / RC28F256P30T85), using a Sensata CBG064-087G BGA socket.", (25.4, 22.86), 2.0)
+           "(e.g. PC28F256P30T85 / RC28F256P30T85), using an HMILU BGA64-1.0-TP21NS 10x13 mm BGA socket.", (25.4, 22.86), 2.0)
     s.text("NOTES\n"
            "1. Ball names follow the P30 datasheet (row letter A-H along the 13 mm side, column number 1-8).\n"
            "   Pads of the socket footprint carry the same names; mapping remapped from the S29 footprint\n"
@@ -303,9 +303,9 @@ def write():
     s = build()
     out = (f"(kicad_sch\n\t(version 20250114)\n\t(generator \"eeschema\")\n\t(generator_version \"9.0\")\n"
            f"\t(uuid {q(ROOT)})\n\t(paper \"A3\")\n"
-           f"\t(title_block\n\t\t(title \"FlashCAT P30 Easy BGA-64 adapter\")\n\t\t(date \"2026-09-27\")\n"
-           f"\t\t(rev \"B\")\n\t\t(company \"brainstorm@nopcode.org\")\n"
-           f"\t\t(comment 1 \"Socket: Sensata CBG064-087G. Target: Intel/Micron StrataFlash P30 (Easy BGA-64)\")\n"
+           f"\t(title_block\n\t\t(title \"FlashCAT P30 Easy BGA-64 adapter\")\n\t\t(date \"2026-10-02\")\n"
+           f"\t\t(rev \"C\")\n\t\t(company \"brainstorm@nopcode.org\")\n"
+           f"\t\t(comment 1 \"Socket: HMILU BGA64-1.0-TP21NS. Target: Intel/Micron StrataFlash P30 (Easy BGA-64)\")\n"
            f"\t\t(comment 2 \"Plugs into the Embedded Computers 56-pin dual header (FlashcatUSB Mach1 / XPORT)\")\n"
            f"\t)\n")
     out += lib_symbols_block()

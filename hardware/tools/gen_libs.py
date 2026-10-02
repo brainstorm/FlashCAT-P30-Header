@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate the project symbol library and the Sensata socket footprint."""
+"""Generate the project symbol library and the BGA-64 socket footprint."""
 import os
 
 import design as D
@@ -140,12 +140,12 @@ def sym_p30():
             for b, (x, y, a) in sorted(lay.items())]
     g = [rect(-P30_HALF_W, P30_HALF_H, P30_HALF_W, -P30_HALF_H)]
     props = std_props(
-        "U", "PC28F256P30T85", f"{LIBNAME}:Sensata_CBG064-087G",
+        "U", "PC28F256P30T85", f"{LIBNAME}:HMILU_BGA64-1.0-TP21NS",
         "https://www.dataman.com/media/datasheet/Intel/P30Family.pdf",
-        "Intel/Micron StrataFlash P30 parallel NOR, 64-ball Easy BGA (10x13 mm, 1.0 mm pitch), fitted in a Sensata CBG064-087G burn-in socket",
+        "Intel/Micron StrataFlash P30 parallel NOR, 64-ball Easy BGA (10x13 mm, 1.0 mm pitch), fitted in an HMILU BGA64-1.0-TP21NS socket",
         (-P30_HALF_W, P30_HALF_H + 3.81), (-P30_HALF_W, -P30_HALF_H - 5.08),
-        {"Socket": "Sensata CBG064-087G (64 pin, 1.0 mm pitch, 11x13 mm)",
-         "MPN": "CBG064-087G", "Manufacturer": "Sensata Technologies"},
+        {"Socket": "HMILU BGA64-1.0-TP21NS (64 pin, 1.0 mm pitch, 10x13 mm)",
+         "MPN": "BGA64-1.0-TP21NS", "Manufacturer": "HMILU"},
         ref_just="left bottom", val_just="left top")
     return symbol("P30_EasyBGA64_Socket", props, g, pins)
 
@@ -257,11 +257,11 @@ def write_symbol_lib():
 
 
 # ---------------------------------------------------------------------------
-# Footprint: Sensata CBG064-087G burn-in socket, P30 Easy BGA ball names
+# Footprint: HMILU BGA64-1.0-TP21NS socket, P30 Easy BGA ball names
 # ---------------------------------------------------------------------------
-SOCKET_DRILL = 0.35   # drawing: 64 x dia 0.30 +0.10/-0.00 (finished)
-SOCKET_PAD = 0.60     # same annular ring as the Embedded Computers footprint
-REG_HOLE = 2.10       # drawing: 4 x dia 2.10 +/-0.05
+FP_NAME = "HMILU_BGA64-1.0-TP21NS"
+SCREW_CLEAR = 4.6     # bottom-side keep-out around the fixing holes (screw head / nut)
+LOCATOR_CLEAR = 2.6   # bottom-side keep-out around the locator pin tips (3.4 mm long pins)
 
 
 def fp_line(x0, y0, x1, y1, layer, w):
@@ -291,72 +291,66 @@ def fp_text(kind, text, x, y, layer, size=1.0, thick=0.15, hide=False, justify=N
             f'\t\t(effects\n\t\t\t(font\n\t\t\t\t(size {fnum(size)} {fnum(size)})\n\t\t\t\t(thickness {fnum(thick)})\n\t\t\t){j}\n\t\t)\n\t)\n')
 
 
-def fp_keepout(x0, y0, x1, y1):
-    return (f'\t(zone\n\t\t(net 0)\n\t\t(net_name "")\n\t\t(layers "F.Cu" "B.Cu")\n\t\t(name "socket_keepout")\n'
-            f'\t\t(hatch edge 0.5)\n\t\t(connect_pads\n\t\t\t(clearance 0)\n\t\t)\n\t\t(min_thickness 0.25)\n'
-            f'\t\t(filled_areas_thickness no)\n\t\t(keepout\n\t\t\t(tracks allowed)\n\t\t\t(vias allowed)\n'
-            f'\t\t\t(pads not_allowed)\n\t\t\t(copperpour allowed)\n\t\t\t(footprints not_allowed)\n\t\t)\n'
-            f'\t\t(placement\n\t\t\t(enabled no)\n\t\t\t(sheetname "")\n\t\t)\n\t\t(fill\n\t\t\t(thermal_gap 0.5)\n\t\t\t(thermal_bridge_width 0.5)\n\t\t)\n'
-            f'\t\t(polygon\n\t\t\t(pts\n\t\t\t\t(xy {fnum(x0)} {fnum(y0)}) (xy {fnum(x1)} {fnum(y0)}) (xy {fnum(x1)} {fnum(y1)}) (xy {fnum(x0)} {fnum(y1)})\n\t\t\t)\n\t\t)\n\t)\n')
-
-
 def write_socket_footprint():
     bw, bh = D.SOCKET_BODY
     hx, hy = bw / 2, bh / 2
-    out = '(footprint "Sensata_CBG064-087G"\n\t(version 20241229)\n\t(generator "flashcat_p30_gen")\n\t(generator_version "1.0")\n\t(layer "F.Cu")\n'
-    out += ('\t(descr "Sensata/Wells-CTI CBG064-087G open-top burn-in socket, 64 contacts, 8x8 1.0 mm pitch, '
-            'for 11x13 mm BGA-64 (e.g. Intel/Micron P30 Easy BGA). Pads named with P30 Easy BGA ball names. '
-            'Hole pattern per Sensata drawing CBG064-087G-3 rev A sheet 2")\n')
-    out += '\t(tags "BGA-64 socket burn-in Sensata Wells CBG064 P30 Easy BGA")\n'
-    out += fp_text("Reference", "REF**", 0, -hy - 1.2, "F.SilkS")
-    out += fp_text("Value", "Sensata_CBG064-087G", 0, hy + 1.2, "F.Fab")
-    out += '\t(attr through_hole)\n'
-    # body outline
+    out = f'(footprint "{FP_NAME}"\n\t(version 20241229)\n\t(generator "flashcat_p30_gen")\n\t(generator_version "1.0")\n\t(layer "F.Cu")\n'
+    out += ('\t(descr "HMILU BGA64-1.0-TP21NS open-top BGA-64 socket, 8x8 1.0 mm pitch, for 10x13 mm packages '
+            '(Intel/Micron P30 Easy BGA). Solderless double-sided spring contacts on 64 x dia 0.55 solid pads '
+            '(no paste; vias in pads must be filled and capped). Pads named with P30 Easy BGA ball names. '
+            'Pattern per HMILU drawing 007-BGA-1.0-64-10X13-B-01 rev A")\n')
+    out += '\t(tags "BGA-64 socket HMILU TP21NS P30 Easy BGA 10x13")\n'
+    out += fp_text("Reference", "REF**", 0, -hy - 1.2, "F.Fab")
+    out += fp_text("Value", FP_NAME, 0, hy + 1.2, "F.Fab")
+    out += '\t(attr smd exclude_from_pos_files)\n'
+    # body outline (socket sits flat on the board: no silk inside it)
     out += fp_rect(-hx, -hy, hx, hy, "F.Fab", 0.1)
     out += fp_rect(-hx - 0.12, -hy - 0.12, hx + 0.12, hy + 0.12, "F.SilkS", 0.12)
     out += fp_rect(-hx - 0.5, -hy - 0.5, hx + 0.5, hy + 0.5, "F.CrtYd", 0.05)
-    # IC footprint (13 x 11 nest) and grid outline on Fab
-    out += fp_rect(-6.5 + 0.09, -5.5 - 0.09, 6.5 + 0.09, 5.5 - 0.09, "F.Fab", 0.1)
-    # pin A1 markers: silk triangle outside the body, next to the A1 corner,
-    # and a dot on Fab next to the A1 contact
+    # IC (13 x 10, centred on the ball grid) on Fab
+    gx, gy = D.GRID_X0 + 3.5, D.GRID_Y0 - 3.5
+    out += fp_rect(gx - 6.5, gy - 5.0, gx + 6.5, gy + 5.0, "F.Fab", 0.1)
+    # pin A1: silk triangle outside the body at the A1 corner, dot on Fab
     ax, ay = D.socket_pad_xy("A1")
     out += fp_circle(ax - 0.9, ay + 0.9, 0.2, "F.Fab", 0.1, fill=True)
     out += (f'\t(fp_poly\n\t\t(pts\n\t\t\t(xy {fnum(-hx - 0.4)} {fnum(hy + 0.4)}) (xy {fnum(-hx - 0.4)} {fnum(hy - 1.6)}) (xy {fnum(-hx + 1.6)} {fnum(hy + 0.4)})\n'
             f'\t\t)\n\t\t(stroke\n\t\t\t(width 0.12)\n\t\t\t(type solid)\n\t\t)\n\t\t(fill yes)\n\t\t(layer "F.SilkS")\n\t)\n')
-    out += fp_text("user", "A1", -hx + 2.6, hy - 1.0, "F.SilkS", size=0.8, thick=0.12)
-    # row/column letters on Fab (like the Eagle tDocu layer)
-    for i, L in enumerate(D.ROW_LETTERS):
+    out += fp_text("user", "A1", ax - 1.6, ay + 1.0, "F.Fab", size=0.6, thick=0.1)
+    # row/column letters on Fab
+    for L in D.ROW_LETTERS:
         x, _ = D.socket_pad_xy(f"{L}1")
-        out += fp_text("user", L, x, -4.4, "F.Fab", size=0.5, thick=0.08)
+        out += fp_text("user", L, x, D.GRID_Y0 - 8.0, "F.Fab", size=0.5, thick=0.08)
     for n in range(1, 9):
         _, y = D.socket_pad_xy(f"A{n}")
-        out += fp_text("user", str(n), -4.5, y, "F.Fab", size=0.5, thick=0.08)
-    out += fp_text("user", "${REFERENCE}", 0, -7.0, "F.Fab", size=1.0, thick=0.15)
-    # hatched corner keep-out zones (socket cover/latch travel)
-    kw, kh = D.SOCKET_KEEPOUT
-    for sx in (-1, 1):
-        for sy in (-1, 1):
-            x0, x1 = sorted((sx * hx, sx * (hx - kw)))
-            y0, y1 = sorted((sy * hy, sy * (hy - kh)))
-            out += fp_rect(x0, y0, x1, y1, "F.Fab", 0.1)
-            out += fp_keepout(x0, y0, x1, y1)
-    # contacts
+        out += fp_text("user", str(n), D.GRID_X0 - 1.0, y, "F.Fab", size=0.5, thick=0.08)
+    out += fp_text("user", "${REFERENCE}", 0, -hy + 2.0, "F.Fab", size=1.0, thick=0.15)
+    # bottom side: keep parts clear of the screw heads and locator pin tips
+    for x, y in D.SOCKET_FIX_HOLES:
+        out += fp_circle(x, y, SCREW_CLEAR / 2, "B.CrtYd", 0.05)
+    for x, y, _ in D.SOCKET_LOCATORS:
+        out += fp_circle(x, y, LOCATOR_CLEAR / 2, "B.CrtYd", 0.05)
+    # contacts: solid SMD pads, mask opening, no paste (solderless contacts)
     for ball in sorted(D.P30_BALLS, key=lambda b: (b[0], int(b[1:]))):
         x, y = D.socket_pad_xy(ball)
-        shape = "rect" if ball == "A1" else "circle"
-        out += (f'\t(pad {q(ball)} thru_hole {shape}\n\t\t(at {fnum(x)} {fnum(y)})\n\t\t(size {SOCKET_PAD} {SOCKET_PAD})\n'
-                f'\t\t(drill {SOCKET_DRILL})\n\t\t(layers "*.Cu" "*.Mask")\n\t\t(remove_unused_layers no)\n\t)\n')
-    # registration holes
-    for x, y in D.SOCKET_REG_HOLES:
-        out += (f'\t(pad "" np_thru_hole circle\n\t\t(at {fnum(x)} {fnum(y)})\n\t\t(size {REG_HOLE} {REG_HOLE})\n'
-                f'\t\t(drill {REG_HOLE})\n\t\t(layers "*.Cu" "*.Mask")\n\t)\n')
+        out += (f'\t(pad {q(ball)} smd circle\n\t\t(at {fnum(x)} {fnum(y)})\n\t\t(size {D.SOCKET_PAD} {D.SOCKET_PAD})\n'
+                f'\t\t(layers "F.Cu" "F.Mask")\n\t)\n')
+    # locator pins and fixing holes (NPTH)
+    for x, y, d in D.SOCKET_LOCATORS:
+        dd = round(d + 0.025, 3)      # drawing: +0.05/-0
+        out += (f'\t(pad "" np_thru_hole circle\n\t\t(at {fnum(x)} {fnum(y)})\n\t\t(size {fnum(dd)} {fnum(dd)})\n'
+                f'\t\t(drill {fnum(dd)})\n\t\t(layers "*.Cu" "*.Mask")\n\t)\n')
+    for x, y in D.SOCKET_FIX_HOLES:
+        out += (f'\t(pad "" np_thru_hole circle\n\t\t(at {fnum(x)} {fnum(y)})\n\t\t(size 2 2)\n'
+                f'\t\t(drill 2)\n\t\t(layers "*.Cu" "*.Mask")\n\t)\n')
     out += ('\t(embedded_fonts no)\n'
-            '\t(model "${KIPRJMOD}/lib/flashcat_p30.3dshapes/Sensata_CBG064-087G.step"\n'
+            f'\t(model "${{KIPRJMOD}}/lib/flashcat_p30.3dshapes/{FP_NAME}.step"\n'
             '\t\t(offset\n\t\t\t(xyz 0 0 0)\n\t\t)\n\t\t(scale\n\t\t\t(xyz 1 1 1)\n\t\t)\n'
             '\t\t(rotate\n\t\t\t(xyz 0 0 0)\n\t\t)\n\t)\n)\n')
     d = os.path.join(LIBDIR, f"{LIBNAME}.pretty")
     os.makedirs(d, exist_ok=True)
-    with open(os.path.join(d, "Sensata_CBG064-087G.kicad_mod"), "w") as f:
+    for f in os.listdir(d):
+        os.remove(os.path.join(d, f))
+    with open(os.path.join(d, f"{FP_NAME}.kicad_mod"), "w") as f:
         f.write(out)
 
 

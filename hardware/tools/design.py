@@ -7,7 +7,10 @@ derived from the tables in this file.
 Sources:
   * Intel/Numonyx "StrataFlash Embedded Memory (P30)" datasheet, order
     306666, Figure 7 "64-Ball Easy BGA Ballout" (top view, balls down).
-  * Sensata CBG064-087G sales drawing, sheet 2 "PCB hole pattern (top view)".
+  * HMILU BGA64-1.0-TP21NS socket drawing 007-BGA-1.0-64-10X13-B-01 rev A,
+    "PCB Pattern (TOP View)": open-top socket for 10x13 mm BGA-64, 1.0 mm
+    pitch, solderless double-sided spring contacts on 64 x dia 0.55 solid
+    (flat) pads, 4 locator pins, 4 fixing holes.
   * Embedded Computers "EC 56-pin dual header" drawing (EC_56P_HEADER.png).
   * Embedded Computers TSOP-56 "Type-D" adapter schematic (SCM_TSOP56_D.png),
     the author's own P30/P33 adapter: 1.8 V LDO from header VCC for the core,
@@ -46,30 +49,42 @@ assert len(P30_BALLS) == 64
 def socket_pad_xy(ball):
     """KiCad footprint coordinates (mm, +y down) of a ball's socket contact.
 
-    Geometry per the Sensata CBG064-087G PCB hole pattern (top view):
-      * pin A1 is the bottom-left contact,
-      * the 8x8 contact grid is NOT centred on the registration-hole datum:
-        A1 sits 3.41 mm left/below the datum, the far row/column 3.59 mm
-        right/above (i.e. grid centre = datum + (0.09, 0.09) in a y-up view).
-    P30 ball letters run along the 13 mm package side (socket X axis), ball
-    numbers along the 10 mm side (socket Y axis).  Rotating the datasheet
-    top view by 90 deg CCW puts A1 bottom-left with letters increasing to
-    the right and numbers increasing upwards (proper rotation, no mirror).
-    This is the same ball-name -> position convention as the Eagle
-    footprint supplied by Embedded Computers.
+    Geometry per the HMILU BGA64-1.0-TP21NS "PCB Pattern (TOP View)":
+      * the IC sits with its 13 mm side along the socket X axis and pin A1
+        at the top-right (datasheet top view rotated 90 deg clockwise, no
+        mirror): letters A..H run right -> left, numbers 1..8 top -> bottom;
+      * the 8x8 pad grid is NOT centred on the socket: the left column and
+        the top row are 3.25 mm from the socket centre lines, the right
+        column / bottom row 3.75 mm, i.e. grid centre = socket centre +
+        (0.25, 0.25) in the drawing's top view.
+    The footprint is defined in that top view rotated by 180 deg (see
+    SOCKET_ROT below, which puts it back on the board), so in footprint
+    coordinates A1 is the bottom-left pad: letters increase to the right,
+    numbers upwards.  This keeps the same ball -> footprint-frame
+    convention as the original Sensata/Eagle footprint, so the fanout plan
+    in fanout.py and the decap geometry below still apply.
     """
     li = ROW_LETTERS.index(ball[0])
     n = int(ball[1:])
-    x = -3.41 + li * 1.0
-    y_up = -3.41 + (n - 1) * 1.0
-    return round(x, 3), round(-y_up, 3)
+    x = GRID_X0 + li * 1.0
+    y = GRID_Y0 - (n - 1) * 1.0
+    return round(x, 3), round(y, 3)
 
 
-# Registration (plastic locating pin) holes, NPTH 2.10 mm, KiCad coords.
-# The one near A1 (bottom-left) is offset 1 mm inwards -> polarises socket.
-SOCKET_REG_HOLES = [(-8.0, -8.0), (8.0, -8.0), (8.0, 8.0), (-7.0, 8.0)]
-SOCKET_BODY = (28.0, 24.6)       # outer body, X x Y
-SOCKET_KEEPOUT = (4.5, 2.8)      # hatched corner keep-out zones, per corner
+# A1 pad in footprint coordinates (drawing top view: (+3.75, -3.25), rotated)
+GRID_X0, GRID_Y0 = -3.75, 3.25
+# Offset of this grid from the original Sensata one (A1 at (-3.41, +3.41)),
+# applied to the hand-planned decap geometry below.
+GRID_SHIFT = (GRID_X0 + 3.41, GRID_Y0 - 3.41)
+
+# Socket mechanics, footprint coordinates (drawing top view rotated 180 deg).
+# Locator pins: 3 x dia 1.45 +0.05/-0 and 1 x dia 1.75 +0.05/-0 (at the A1
+# corner, polarises the socket), 11.20 x 20.00 mm apart, NPTH.
+SOCKET_LOCATORS = [(-5.6, 10.0, 1.75), (5.6, 10.0, 1.45), (5.6, -10.0, 1.45), (-5.6, -10.0, 1.45)]
+# Fixing holes (screws): 4 x dia 2.00, 21.20 x 22.20 mm apart, NPTH.
+SOCKET_FIX_HOLES = [(sx * 10.6, sy * 11.1) for sx in (-1, 1) for sy in (-1, 1)]
+SOCKET_BODY = (26.0, 30.0)       # outer body, X x Y
+SOCKET_PAD = 0.55                # solid (flat) pad for the spring contacts
 
 
 # ---------------------------------------------------------------------------
@@ -160,7 +175,7 @@ J2_PINS = header_pins(EC_J2_LEFT, EC_J2_RIGHT)
 # Board-level placement (KiCad coords, mm).  Socket datum at origin.
 J1_ANCHOR = (-20.0, -13.0)   # pad 1 of J1 (bottom-side footprint)
 J2_ANCHOR = (22.0, -13.0)    # pad 1 of J2
-BOARD = (-25.5, -18.5, 25.5, 18.5)   # x0, y0, x1, y1
+BOARD = (-25.5, -16.5, 25.5, 16.5)   # x0, y0, x1, y1: 51 x 33 like the EC adapters
 
 
 def check():
@@ -197,8 +212,8 @@ def _pad_off(edge, d):
     return round(edge + d, 3)
 
 
-_XL, _XR = -3.41, 3.59          # column A / H pad centres
-DECAPS = {
+_XL, _XR = -3.41, 3.59          # column A / H pad centres of the original grid
+_DECAPS = {
     # VCC A6 (+1V8): out through the row 6/7 gap on the left
     "C5": ("A6", (_pad_off(_XL, -1.415), -2.09), (_pad_off(_XL, -2.965), -2.09),
            [(-3.41, -1.59), (-3.91, -2.09), (_pad_off(_XL, -1.415), -2.09)]),
@@ -220,7 +235,7 @@ DECAPS = {
 
 # VCCQ decap clusters sit on VCC_PROG islands inside the grid: drop each onto
 # the In2 VCC pour (solid outside the grid) with a via.  (from pad xy, via xy)
-DECAP_VIAS = [
+_DECAP_VIAS = [
     ((0.64, -5.69), (1.6, -6.5)),     # C4/C7 (D5, D6)
     ((5.005, -0.09), (5.69, -0.09)),  # C8 (G4), also the end of G4's F.Cu escape
 ]
@@ -228,13 +243,26 @@ DECAP_VIAS = [
 # Locked B.Cu link joining the G4/C8 VCCQ cluster to the C4/C7 cluster (and
 # its via), so all VCCQ balls share one VCC_PROG connection regardless of
 # how the In2 pour gets split by signal routing.
-VCCQ_LINK = [(5.005, -0.09), (5.005, -5.0), (3.505, -6.5), (1.6, -6.5)]
+_VCCQ_LINK = [(5.005, -0.09), (5.005, -5.0), (3.505, -6.5), (1.6, -6.5)]
+
+
+def _sh(p):
+    return (round(p[0] + GRID_SHIFT[0], 3), round(p[1] + GRID_SHIFT[1], 3))
+
+
+# The geometry above was planned on the Sensata grid; move it rigidly with
+# the pad grid so it keeps its position relative to the balls.
+DECAPS = {ref: (ball, _sh(p1), _sh(p2), [_sh(q) for q in path])
+          for ref, (ball, p1, p2, path) in _DECAPS.items()}
+DECAP_VIAS = [(_sh(a), _sh(v)) for a, v in _DECAP_VIAS]
+VCCQ_LINK = [_sh(q) for q in _VCCQ_LINK]
 
 # ---------------------------------------------------------------------------
-# Socket orientation on the board.  Rotated 180 deg so the address-heavy
-# columns (A-D) face the address header J2 and the data columns (E-H) face
-# the data header J1.  All fanout/decap geometry above is written in the
-# socket footprint frame; R() maps it onto the board.
+# Socket orientation on the board.  Rotated 180 deg, which brings the
+# footprint back to the drawing's top view: A1 top-right, address-heavy
+# columns (A-D) facing the address header J2 and the data columns (E-H)
+# facing the data header J1.  All fanout/decap geometry above is written in
+# the socket footprint frame; R() maps it onto the board.
 # ---------------------------------------------------------------------------
 SOCKET_ROT = 180
 
@@ -247,8 +275,24 @@ def R(p):
     return (x, y)
 
 # Hand pre-routes (BOARD frame, i.e. already rotated; socket datum at 0,0).
-# DQ12: from the end of ball F5's In2 escape to J1 pad 21, around the
-# registration hole; Freerouting could not finish this one on its own.
+# DQ12: from the end of ball F5's In2 escape to J1 pad 21; Freerouting could
+# not finish this one on its own.
+# A2: from the end of ball B1's In2 stub to J2 pad 6 (A2/CE3).  The top-row
+# address balls reach the header in reverse order (A4..A1 left to right vs.
+# A1..A4 top to bottom), and Freerouting kept boxing pad 6 in on all layers.
+# WAIT: from the end of ball F7's F.Cu escape straight down between the
+# C4/C7 decap vias, then through a via to R2 pad 2 on the bottom.
+# DQ11: from the end of ball F4's In2 escape to J1 pad 19, parallel to DQ12
+# and clear of the C6/C8 GND vias; J1 pad 19 also got boxed in otherwise.
 PREROUTES = [
-    ("F5", "In2.Cu", 0.127, [(-4.89, 0.09), (-4.89, 2.5), (-9.39, 7.0), (-20.0, 7.0)]),
+    ("F4", "In2.Cu", 0.127, [(-4.55, -0.75), (-6.2, -0.75), (-6.2, 2.35), (-8.85, 5.0), (-20.0, 5.0)]),
+    ("F7", "F.Cu", 0.127, [(-0.75, 5.05), (-0.75, 11.1), (0.1, 11.95)]),
+    ("F7", "B.Cu", 0.2, [(0.1, 11.95), (0.6, 12.45), (0.6, 13.1)]),
+    ("B1", "F.Cu", 0.127, [(2.75, -4.15), (7.45, -8.85), (19.85, -8.85), (20.0, -9.0)]),
+    ("F5", "In2.Cu", 0.127, [(-4.55, 0.25), (-4.55, 2.66), (-8.89, 7.0), (-20.0, 7.0)]),
+]
+
+# Vias joining pre-route segments on different layers (BOARD frame).
+PREROUTE_VIAS = [
+    ("F7", (0.1, 11.95)),       # WAIT: F.Cu -> B.Cu at R2
 ]

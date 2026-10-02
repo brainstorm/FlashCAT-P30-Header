@@ -6,10 +6,10 @@
 	(paper "A3")
 	(title_block
 		(title "FlashCAT P30 Easy BGA-64 adapter")
-		(date "2026-09-27")
-		(rev "B")
+		(date "2026-10-02")
+		(rev "C")
 		(company "brainstorm@nopcode.org")
-		(comment 1 "Socket: Sensata CBG064-087G. Target: Intel/Micron StrataFlash P30 (Easy BGA-64)")
+		(comment 1 "Socket: HMILU BGA64-1.0-TP21NS. Target: Intel/Micron StrataFlash P30 (Easy BGA-64)")
 		(comment 2 "Plugs into the Embedded Computers 56-pin dual header (FlashcatUSB Mach1 / XPORT)")
 	)
 	(lib_symbols
@@ -38,7 +38,7 @@
 					(justify left top)
 				)
 			)
-			(property "Footprint" "flashcat_p30:Sensata_CBG064-087G"
+			(property "Footprint" "flashcat_p30:HMILU_BGA64-1.0-TP21NS"
 				(at 0 0 0)
 				(hide yes)
 				(effects
@@ -56,7 +56,7 @@
 					)
 				)
 			)
-			(property "Description" "Intel/Micron StrataFlash P30 parallel NOR, 64-ball Easy BGA (10x13 mm, 1.0 mm pitch), fitted in a Sensata CBG064-087G burn-in socket"
+			(property "Description" "Intel/Micron StrataFlash P30 parallel NOR, 64-ball Easy BGA (10x13 mm, 1.0 mm pitch), fitted in an HMILU BGA64-1.0-TP21NS socket"
 				(at 0 0 0)
 				(hide yes)
 				(effects
@@ -65,7 +65,7 @@
 					)
 				)
 			)
-			(property "Socket" "Sensata CBG064-087G (64 pin, 1.0 mm pitch, 11x13 mm)"
+			(property "Socket" "HMILU BGA64-1.0-TP21NS (64 pin, 1.0 mm pitch, 10x13 mm)"
 				(at 0 0 0)
 				(hide yes)
 				(effects
@@ -74,7 +74,7 @@
 					)
 				)
 			)
-			(property "MPN" "CBG064-087G"
+			(property "MPN" "BGA64-1.0-TP21NS"
 				(at 0 0 0)
 				(hide yes)
 				(effects
@@ -83,7 +83,7 @@
 					)
 				)
 			)
-			(property "Manufacturer" "Sensata Technologies"
+			(property "Manufacturer" "HMILU"
 				(at 0 0 0)
 				(hide yes)
 				(effects
@@ -3436,7 +3436,7 @@
 				)
 			)
 		)
-		(property "Footprint" "flashcat_p30:Sensata_CBG064-087G"
+		(property "Footprint" "flashcat_p30:HMILU_BGA64-1.0-TP21NS"
 			(at 215.9 142.24 0)
 			(hide yes)
 			(effects
@@ -3454,7 +3454,7 @@
 				)
 			)
 		)
-		(property "Description" "Intel/Micron StrataFlash P30 parallel NOR, 64-ball Easy BGA (10x13 mm, 1.0 mm pitch), fitted in a Sensata CBG064-087G burn-in socket"
+		(property "Description" "Intel/Micron StrataFlash P30 parallel NOR, 64-ball Easy BGA (10x13 mm, 1.0 mm pitch), fitted in an HMILU BGA64-1.0-TP21NS socket"
 			(at 215.9 142.24 0)
 			(hide yes)
 			(effects
@@ -3463,7 +3463,7 @@
 				)
 			)
 		)
-		(property "Socket" "Sensata CBG064-087G"
+		(property "Socket" "HMILU BGA64-1.0-TP21NS"
 			(at 215.9 142.24 0)
 			(hide yes)
 			(effects
@@ -3472,7 +3472,7 @@
 				)
 			)
 		)
-		(property "MPN" "CBG064-087G"
+		(property "MPN" "BGA64-1.0-TP21NS"
 			(at 215.9 142.24 0)
 			(hide yes)
 			(effects
@@ -3481,7 +3481,7 @@
 				)
 			)
 		)
-		(property "Manufacturer" "Sensata Technologies"
+		(property "Manufacturer" "HMILU"
 			(at 215.9 142.24 0)
 			(hide yes)
 			(effects
@@ -9614,7 +9614,7 @@
 			)
 		)
 	)
-	(text "FlashCAT (FlashcatUSB Mach1 / XPORT) adapter for Intel/Micron P30 StrataFlash in 64-ball Easy BGA\n(e.g. PC28F256P30T85 / RC28F256P30T85), using a Sensata CBG064-087G BGA socket."
+	(text "FlashCAT (FlashcatUSB Mach1 / XPORT) adapter for Intel/Micron P30 StrataFlash in 64-ball Easy BGA\n(e.g. PC28F256P30T85 / RC28F256P30T85), using an HMILU BGA64-1.0-TP21NS 10x13 mm BGA socket."
 		(exclude_from_sim no)
 		(at 25.4 22.86 0)
 		(effects

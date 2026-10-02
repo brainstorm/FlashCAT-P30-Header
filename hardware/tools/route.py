@@ -179,6 +179,7 @@ def route_once():
             b.Remove(z)
     if os.environ.get("FR_KEEP") != "1":
         print("fanout tracks:", fanout.apply(b))
+        print("socket pad vias:", fanout.pad_vias(b))
         print("GND vias:", fanout.gnd_vias(b))
         print("VCCQ decap vias:", fanout.decap_vias(b))
     assert P.ExportSpecctraDSN(b, dsn)
@@ -196,6 +197,7 @@ def route_once():
     assert P.ImportSpecctraSES(b, ses)
 
     print("trimmed dangling segments:", trim_dangling(b))
+    print("redundant socket pad vias removed:", fanout.prune_pad_vias(b, _unconnected))
     x0, y0, x1, y1 = D.BOARD
     add_zone(b, "VCC_PROG", P.In2_Cu, x0, y0, x1, y1, prio=0, clearance=0.2, min_w=0.2, name="VCC_plane")
     add_zone(b, "GND", P.F_Cu, x0, y0, x1, y1, prio=0, clearance=0.2, min_w=0.2, name="GND_top")

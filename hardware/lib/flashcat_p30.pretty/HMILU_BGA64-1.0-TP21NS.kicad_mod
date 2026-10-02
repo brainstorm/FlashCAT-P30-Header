@@ -1,0 +1,730 @@
+(footprint "HMILU_BGA64-1.0-TP21NS"
+	(version 20241229)
+	(generator "flashcat_p30_gen")
+	(generator_version "1.0")
+	(layer "F.Cu")
+	(descr "HMILU BGA64-1.0-TP21NS open-top BGA-64 socket, 8x8 1.0 mm pitch, for 10x13 mm packages (Intel/Micron P30 Easy BGA). Solderless double-sided spring contacts on 64 x dia 0.55 solid pads (no paste; vias in pads must be filled and capped). Pads named with P30 Easy BGA ball names. Pattern per HMILU drawing 007-BGA-1.0-64-10X13-B-01 rev A")
+	(tags "BGA-64 socket HMILU TP21NS P30 Easy BGA 10x13")
+	(property "Reference" "REF**"
+		(at 0 -16.2 0)
+		(layer "F.Fab")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Value" "HMILU_BGA64-1.0-TP21NS"
+		(at 0 16.2 0)
+		(layer "F.Fab")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(attr smd exclude_from_pos_files)
+	(fp_rect
+		(start -13 -15)
+		(end 13 15)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(fill no)
+		(layer "F.Fab")
+	)
+	(fp_rect
+		(start -13.12 -15.12)
+		(end 13.12 15.12)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(fill no)
+		(layer "F.SilkS")
+	)
+	(fp_rect
+		(start -13.5 -15.5)
+		(end 13.5 15.5)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(fill no)
+		(layer "F.CrtYd")
+	)
+	(fp_rect
+		(start -6.75 -5.25)
+		(end 6.25 4.75)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(fill no)
+		(layer "F.Fab")
+	)
+	(fp_circle
+		(center -4.65 4.15)
+		(end -4.45 4.15)
+		(stroke
+			(width 0.1)
+			(type solid)
+		)
+		(fill yes)
+		(layer "F.Fab")
+	)
+	(fp_poly
+		(pts
+			(xy -13.4 15.4) (xy -13.4 13.4) (xy -11.4 15.4)
+		)
+		(stroke
+			(width 0.12)
+			(type solid)
+		)
+		(fill yes)
+		(layer "F.SilkS")
+	)
+	(fp_text user "A1"
+		(at -5.35 4.25 0)
+		(layer "F.Fab")
+		(effects
+			(font
+				(size 0.6 0.6)
+				(thickness 0.1)
+			)
+		)
+	)
+	(fp_text user "A"
+		(at -3.75 -4.75 0)
+		(layer "F.Fab")
+		(effects
+			(font
+				(size 0.5 0.5)
+				(thickness 0.08)
+			)
+		)
+	)
+	(fp_text user "B"
+		(at -2.75 -4.75 0)
+		(layer "F.Fab")
+		(effects
+			(font
+				(size 0.5 0.5)
+				(thickness 0.08)
+			)
+		)
+	)
+	(fp_text user "C"
+		(at -1.75 -4.75 0)
+		(layer "F.Fab")
+		(effects
+			(font
+				(size 0.5 0.5)
+				(thickness 0.08)
+			)
+		)
+	)
+	(fp_text user "D"
+		(at -0.75 -4.75 0)
+		(layer "F.Fab")
+		(effects
+			(font
+				(size 0.5 0.5)
+				(thickness 0.08)
+			)
+		)
+	)
+	(fp_text user "E"
+		(at 0.25 -4.75 0)
+		(layer "F.Fab")
+		(effects
+			(font
+				(size 0.5 0.5)
+				(thickness 0.08)
+			)
+		)
+	)
+	(fp_text user "F"
+		(at 1.25 -4.75 0)
+		(layer "F.Fab")
+		(effects
+			(font
+				(size 0.5 0.5)
+				(thickness 0.08)
+			)
+		)
+	)
+	(fp_text user "G"
+		(at 2.25 -4.75 0)
+		(layer "F.Fab")
+		(effects
+			(font
+				(size 0.5 0.5)
+				(thickness 0.08)
+			)
+		)
+	)
+	(fp_text user "H"
+		(at 3.25 -4.75 0)
+		(layer "F.Fab")
+		(effects
+			(font
+				(size 0.5 0.5)
+				(thickness 0.08)
+			)
+		)
+	)
+	(fp_text user "1"
+		(at -4.75 3.25 0)
+		(layer "F.Fab")
+		(effects
+			(font
+				(size 0.5 0.5)
+				(thickness 0.08)
+			)
+		)
+	)
+	(fp_text user "2"
+		(at -4.75 2.25 0)
+		(layer "F.Fab")
+		(effects
+			(font
+				(size 0.5 0.5)
+				(thickness 0.08)
+			)
+		)
+	)
+	(fp_text user "3"
+		(at -4.75 1.25 0)
+		(layer "F.Fab")
+		(effects
+			(font
+				(size 0.5 0.5)
+				(thickness 0.08)
+			)
+		)
+	)
+	(fp_text user "4"
+		(at -4.75 0.25 0)
+		(layer "F.Fab")
+		(effects
+			(font
+				(size 0.5 0.5)
+				(thickness 0.08)
+			)
+		)
+	)
+	(fp_text user "5"
+		(at -4.75 -0.75 0)
+		(layer "F.Fab")
+		(effects
+			(font
+				(size 0.5 0.5)
+				(thickness 0.08)
+			)
+		)
+	)
+	(fp_text user "6"
+		(at -4.75 -1.75 0)
+		(layer "F.Fab")
+		(effects
+			(font
+				(size 0.5 0.5)
+				(thickness 0.08)
+			)
+		)
+	)
+	(fp_text user "7"
+		(at -4.75 -2.75 0)
+		(layer "F.Fab")
+		(effects
+			(font
+				(size 0.5 0.5)
+				(thickness 0.08)
+			)
+		)
+	)
+	(fp_text user "8"
+		(at -4.75 -3.75 0)
+		(layer "F.Fab")
+		(effects
+			(font
+				(size 0.5 0.5)
+				(thickness 0.08)
+			)
+		)
+	)
+	(fp_text user "${REFERENCE}"
+		(at 0 -13 0)
+		(layer "F.Fab")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(fp_circle
+		(center -10.6 -11.1)
+		(end -8.3 -11.1)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(fill no)
+		(layer "B.CrtYd")
+	)
+	(fp_circle
+		(center -10.6 11.1)
+		(end -8.3 11.1)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(fill no)
+		(layer "B.CrtYd")
+	)
+	(fp_circle
+		(center 10.6 -11.1)
+		(end 12.9 -11.1)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(fill no)
+		(layer "B.CrtYd")
+	)
+	(fp_circle
+		(center 10.6 11.1)
+		(end 12.9 11.1)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(fill no)
+		(layer "B.CrtYd")
+	)
+	(fp_circle
+		(center -5.6 10)
+		(end -4.3 10)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(fill no)
+		(layer "B.CrtYd")
+	)
+	(fp_circle
+		(center 5.6 10)
+		(end 6.9 10)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(fill no)
+		(layer "B.CrtYd")
+	)
+	(fp_circle
+		(center 5.6 -10)
+		(end 6.9 -10)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(fill no)
+		(layer "B.CrtYd")
+	)
+	(fp_circle
+		(center -5.6 -10)
+		(end -4.3 -10)
+		(stroke
+			(width 0.05)
+			(type solid)
+		)
+		(fill no)
+		(layer "B.CrtYd")
+	)
+	(pad "A1" smd circle
+		(at -3.75 3.25)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "A2" smd circle
+		(at -3.75 2.25)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "A3" smd circle
+		(at -3.75 1.25)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "A4" smd circle
+		(at -3.75 0.25)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "A5" smd circle
+		(at -3.75 -0.75)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "A6" smd circle
+		(at -3.75 -1.75)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "A7" smd circle
+		(at -3.75 -2.75)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "A8" smd circle
+		(at -3.75 -3.75)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "B1" smd circle
+		(at -2.75 3.25)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "B2" smd circle
+		(at -2.75 2.25)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "B3" smd circle
+		(at -2.75 1.25)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "B4" smd circle
+		(at -2.75 0.25)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "B5" smd circle
+		(at -2.75 -0.75)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "B6" smd circle
+		(at -2.75 -1.75)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "B7" smd circle
+		(at -2.75 -2.75)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "B8" smd circle
+		(at -2.75 -3.75)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "C1" smd circle
+		(at -1.75 3.25)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "C2" smd circle
+		(at -1.75 2.25)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "C3" smd circle
+		(at -1.75 1.25)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "C4" smd circle
+		(at -1.75 0.25)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "C5" smd circle
+		(at -1.75 -0.75)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "C6" smd circle
+		(at -1.75 -1.75)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "C7" smd circle
+		(at -1.75 -2.75)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "C8" smd circle
+		(at -1.75 -3.75)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "D1" smd circle
+		(at -0.75 3.25)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "D2" smd circle
+		(at -0.75 2.25)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "D3" smd circle
+		(at -0.75 1.25)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "D4" smd circle
+		(at -0.75 0.25)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "D5" smd circle
+		(at -0.75 -0.75)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "D6" smd circle
+		(at -0.75 -1.75)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "D7" smd circle
+		(at -0.75 -2.75)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "D8" smd circle
+		(at -0.75 -3.75)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "E1" smd circle
+		(at 0.25 3.25)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "E2" smd circle
+		(at 0.25 2.25)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "E3" smd circle
+		(at 0.25 1.25)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "E4" smd circle
+		(at 0.25 0.25)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "E5" smd circle
+		(at 0.25 -0.75)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "E6" smd circle
+		(at 0.25 -1.75)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "E7" smd circle
+		(at 0.25 -2.75)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "E8" smd circle
+		(at 0.25 -3.75)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "F1" smd circle
+		(at 1.25 3.25)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "F2" smd circle
+		(at 1.25 2.25)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "F3" smd circle
+		(at 1.25 1.25)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "F4" smd circle
+		(at 1.25 0.25)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "F5" smd circle
+		(at 1.25 -0.75)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "F6" smd circle
+		(at 1.25 -1.75)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "F7" smd circle
+		(at 1.25 -2.75)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "F8" smd circle
+		(at 1.25 -3.75)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "G1" smd circle
+		(at 2.25 3.25)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "G2" smd circle
+		(at 2.25 2.25)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "G3" smd circle
+		(at 2.25 1.25)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "G4" smd circle
+		(at 2.25 0.25)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "G5" smd circle
+		(at 2.25 -0.75)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "G6" smd circle
+		(at 2.25 -1.75)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "G7" smd circle
+		(at 2.25 -2.75)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "G8" smd circle
+		(at 2.25 -3.75)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "H1" smd circle
+		(at 3.25 3.25)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "H2" smd circle
+		(at 3.25 2.25)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "H3" smd circle
+		(at 3.25 1.25)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "H4" smd circle
+		(at 3.25 0.25)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "H5" smd circle
+		(at 3.25 -0.75)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "H6" smd circle
+		(at 3.25 -1.75)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "H7" smd circle
+		(at 3.25 -2.75)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "H8" smd circle
+		(at 3.25 -3.75)
+		(size 0.55 0.55)
+		(layers "F.Cu" "F.Mask")
+	)
+	(pad "" np_thru_hole circle
+		(at -5.6 10)
+		(size 1.775 1.775)
+		(drill 1.775)
+		(layers "*.Cu" "*.Mask")
+	)
+	(pad "" np_thru_hole circle
+		(at 5.6 10)
+		(size 1.475 1.475)
+		(drill 1.475)
+		(layers "*.Cu" "*.Mask")
+	)
+	(pad "" np_thru_hole circle
+		(at 5.6 -10)
+		(size 1.475 1.475)
+		(drill 1.475)
+		(layers "*.Cu" "*.Mask")
+	)
+	(pad "" np_thru_hole circle
+		(at -5.6 -10)
+		(size 1.475 1.475)
+		(drill 1.475)
+		(layers "*.Cu" "*.Mask")
+	)
+	(pad "" np_thru_hole circle
+		(at -10.6 -11.1)
+		(size 2 2)
+		(drill 2)
+		(layers "*.Cu" "*.Mask")
+	)
+	(pad "" np_thru_hole circle
+		(at -10.6 11.1)
+		(size 2 2)
+		(drill 2)
+		(layers "*.Cu" "*.Mask")
+	)
+	(pad "" np_thru_hole circle
+		(at 10.6 -11.1)
+		(size 2 2)
+		(drill 2)
+		(layers "*.Cu" "*.Mask")
+	)
+	(pad "" np_thru_hole circle
+		(at 10.6 11.1)
+		(size 2 2)
+		(drill 2)
+		(layers "*.Cu" "*.Mask")
+	)
+	(embedded_fonts no)
+	(model "${KIPRJMOD}/lib/flashcat_p30.3dshapes/HMILU_BGA64-1.0-TP21NS.step"
+		(offset
+			(xyz 0 0 0)
+		)
+		(scale
+			(xyz 1 1 1)
+		)
+		(rotate
+			(xyz 0 0 0)
+		)
+	)
+)

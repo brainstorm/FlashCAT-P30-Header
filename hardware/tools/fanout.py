@@ -1,14 +1,17 @@
 """Deterministic escape (fanout) of the 8x8 socket grid.
 
-The socket contacts are plated through-holes on a 1.0 mm grid with 0.6 mm
-pads, so every channel between two pads takes exactly one 0.127 mm track per
-layer.  Autorouters struggle with the inner rings, so the escape is fixed
-here and the rest (grid edge -> headers/passives) is left to Freerouting.
+The socket contacts press onto 0.55 mm solid SMD pads on a 1.0 mm grid, so
+every channel between two pads takes exactly one 0.127 mm track per layer.
+Balls that leave on another layer (or need the GND plane / a bottom decap)
+get a 0.3/0.5 mm via in the centre of their pad, which must be resin filled
+and copper capped so the pad stays flat for the spring contact.
+Autorouters struggle with the inner rings, so the escape is fixed here and
+the rest (grid edge -> headers/passives) is left to Freerouting.
 
   F.Cu : ring 1 (straight stubs) + ring 2 (diagonal to interstitial, then out)
   B.Cu : ring 3
   In2  : ring 4 (centre 2x2)
-  GND balls connect to the In1 plane through their barrels (no track).
+  GND balls drop to the In1 plane through their via-in-pad (no track).
 
 Directions are KiCad screen coords: -y is "up" (towards row 8).
 """
@@ -41,7 +44,8 @@ ESCAPES = [
     # C6 moved to In2 so the B.Cu row 6/7 gap is free for the A6 decap path
     *[(b, B, (-1, -1), L) for b in ("C5", "C4")],
     ("C3", I2, (-1, 1), Dn),     # In2: bottom of B.Cu is busy
-    *[(b, B, (-1, 1), Dn) for b in ("D3", "E3")],
+    ("D3", B, (-1, 1), L),      # row 2/3 gap towards J2: A11 sits low on the header
+    ("E3", B, (-1, 1), Dn),
     # right side of B.Cu is kept free for the H3/G4 decaps
     ("F3", B, (-1, 1), Dn),
     ("D6", B, (-1, -1), U),
@@ -50,7 +54,7 @@ ESCAPES = [
     ("E4", I2, (-1, 1), Dn),
     ("E5", I2, (-1, -1), L),
     ("C6", I2, (-1, -1), L),
-    ("F4", I2, (1, 1), Dn),
+    ("F4", I2, (1, 1), R),      # row 3/4 gap: faces J1 once the socket is rotated
     ("F5", I2, (1, 1), R),      # row 4/5 gap: faces J1 once the socket is rotated
 ]
 
@@ -104,6 +108,18 @@ def paths():
         assert needs == (ball in seen), (ball, sig, net)
 
 
+def pad_via_balls():
+    """Balls that need a via in their pad: escapes on B.Cu/In2, decap paths
+    on B.Cu, and GND balls (In1 plane)."""
+    balls = {b for b, layer, _ in paths() if layer != F}
+    balls |= {b for b, _, _ in decap_paths()}
+    balls |= {b for b, sig in D.P30_BALLS.items() if D.p30_net(sig) == "GND"}
+    # balls with a pre-route on another layer (F4: DQ11; F7: WAIT, whose pad
+    # via also gives the router a second way into the ball)
+    balls |= {b for b, layer, _, _ in D.PREROUTES if layer != "F.Cu"}
+    return sorted(balls)
+
+
 def decap_paths():
     """(ball, "B.Cu", points) joining each bottom decap to its ball."""
     for ref, (ball, p1, p2, path) in D.DECAPS.items():
@@ -138,6 +154,53 @@ def apply(board):
             t.SetLocked(True)
             board.Add(t)
             n += 1
+    for ball, (x, y) in D.PREROUTE_VIAS:
+        via = P.PCB_VIA(board)
+        via.SetPosition(P.VECTOR2I(P.FromMM(x), P.FromMM(y)))
+        via.SetWidth(P.FromMM(0.5))
+        via.SetDrill(P.FromMM(0.3))
+        via.SetNet(fp.FindPadByNumber(ball).GetNet())
+        via.SetLocked(True)
+        board.Add(via)
+    return n
+
+
+def pad_vias(board):
+    """Filled, capped via in the centre of every socket pad that needs one."""
+    fp = board.FindFootprintByReference("U1")
+    n = 0
+    for ball in pad_via_balls():
+        pad = fp.FindPadByNumber(ball)
+        via = P.PCB_VIA(board)
+        via.SetPosition(pad.GetPosition())
+        via.SetWidth(P.FromMM(0.5))
+        via.SetDrill(P.FromMM(0.3))
+        via.SetNet(pad.GetNet())
+        via.SetLocked(True)
+        board.Add(via)
+        n += 1
+    return n
+
+
+def prune_pad_vias(board, unconnected):
+    """Drop socket pad vias the router made redundant (it took the ball out on
+    F.Cu instead).  A via is removed only if that does not open any
+    connection (`unconnected` counts the board's open connections).  Vias on
+    the plane nets stay: GND feeds the In1 plane, VCC_PROG the In2 pour."""
+    fp = board.FindFootprintByReference("U1")
+    pads = {(p.GetPosition().x, p.GetPosition().y) for p in fp.Pads() if p.GetNumber()}
+    n = 0
+    for v in [t for t in board.GetTracks() if t.GetClass() == "PCB_VIA"]:
+        pos = v.GetPosition()
+        if (pos.x, pos.y) not in pads or v.GetNetname() in ("GND", "VCC_PROG"):
+            continue
+        before = unconnected(board)
+        board.Remove(v)
+        if unconnected(board) > before:
+            board.Add(v)
+        else:
+            n += 1
+    unconnected(board)
     return n
 
 

@@ -89,14 +89,15 @@ PLACE = {
     "U1": (0, 0, D.SOCKET_ROT, "F"),
     "J1": (*D.J1_ANCHOR, 0, "B"),
     "J2": (*D.J2_ANCHOR, 0, "B"),
-    # top strip, BOTTOM side: 1.8 V LDO with its input/output caps on either side
-    "C1": (-12.0, -15.2, 90, "B"),
-    "U2": (-8.2, -15.2, 90, "B"),
-    "C2": (-4.4, -15.2, 90, "B"),
+    # top strip, BOTTOM side: 1.8 V LDO with its input/output caps on either
+    # side, clear of the socket's screw heads and locator pin tips
+    "C1": (-6.6, -13.9, 90, "B"),
+    "U2": (-2.9, -13.6, 90, "B"),
+    "C2": (0.8, -13.9, 90, "B"),
     # bottom strip, BOTTOM side: pull-ups, reset RC
-    "R1": (-3.8, 15.2, 90, "B"),
-    "C9": (-1.6, 15.2, 90, "B"),
-    "R2": (0.6, 15.2, 90, "B"),
+    "R1": (-3.8, 13.9, 90, "B"),
+    "C9": (-1.6, 13.9, 90, "B"),
+    "R2": (0.6, 13.9, 90, "B"),
 }
 
 
@@ -261,7 +262,7 @@ def build():
     jb = b.FindFootprintByReference("J2").FindPadByNumber("2").GetPosition()
     assert abs(P.ToMM(jb.x - ja.x) - (D.EC_SPACING)) < 1e-6 + 2.0 or True
 
-    # sanity: socket pads sit on the Sensata grid
+    # sanity: socket pads sit on the HMILU pad grid
     u1 = b.FindFootprintByReference("U1")
     for pad in u1.Pads():
         if pad.GetNumber():
@@ -292,7 +293,7 @@ def build():
             fp.Reference().SetTextThickness(mm(0.12))
             fp.Reference().SetTextAngleDegrees(0)
             x, y, _, _ = PLACE[ref]
-            fp.Reference().SetPosition(V(x, -17.55 if y < 0 else 17.55))
+            fp.Reference().SetPosition(V(x, -15.8 if y < 0 else 15.8))
         elif ref in ("J1", "J2"):
             x = -23.6 if ref == "J1" else 23.6
             fp.Reference().SetPosition(V(x - 0 if ref == "J1" else x, 15.2))
@@ -316,15 +317,16 @@ def build():
 
     # --- silkscreen --------------------------------------------------------
     F, B = P.F_SilkS, P.B_SilkS
-    add_text(b, "FlashCAT P30", 12.0, -16.3, F, 1.0, 0.15)
-    add_text(b, "Easy BGA-64", 12.0, -14.6, F, 0.8, 0.12)
-    add_text(b, "rev B", 12.0, 15.2, F, 0.8, 0.12)
+    # top: the socket body covers x +/-13, y +/-15; text goes in the strips
+    # between it and the headers
+    add_text(b, "FlashCAT P30 Easy BGA-64", 16.0, 0, F, 1.0, 0.15, rot=90)
+    add_text(b, "rev C", -16.0, 0, F, 1.0, 0.15, rot=90)
     # header function hints (top view)
     add_text(b, "GND", -22.0, -15.0, F, 0.8, 0.12)
     add_text(b, "A0", 20.0, -15.0, F, 0.8, 0.12)
-    add_text(b, "FlashCAT P30 Easy BGA-64 adapter", 0, 10.4, B, 1.0, 0.15, mirror=True)
-    add_text(b, "Sensata CBG064-087G + EC 56-pin header", 0, 12.2, B, 0.8, 0.12, mirror=True)
-    add_text(b, "rev B  2026-09", 0, -10.6, B, 0.8, 0.12, mirror=True)
+    add_text(b, "FlashCAT P30 Easy BGA-64 adapter", -16.6, 0, B, 0.8, 0.12, mirror=True, rot=90)
+    add_text(b, "HMILU BGA64-1.0-TP21NS socket", -15.0, 0, B, 0.8, 0.12, mirror=True, rot=90)
+    add_text(b, "EC 56-pin header  rev C  2026-10", 16.0, 0, B, 0.8, 0.12, mirror=True, rot=90)
 
     P.SaveBoard(PCB, b, True)
     print("wrote", PCB)
