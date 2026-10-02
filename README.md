@@ -3,14 +3,14 @@
 A [FlashcatUSB](https://www.embeddedcomputers.net/products/ParallelAdapters/)
 (Mach1 / XPORT) parallel adapter for reading and writing **Intel / Micron
 StrataFlash P30** NOR flash in the **64-ball Easy BGA** package (e.g.
-`PC28F256P30T85`), using a Sensata CBG064-087G burn-in socket. Designed in
-KiCad 10; rev B.
+`PC28F256P30T85`), using an HMILU BGA64-1.0-TP21NS 10 × 13 mm socket.
+Designed in KiCad 10; rev C.
 
 | Top | Bottom |
 |---|---|
 | ![Top, perspective](hardware/renders/board_top_3d.png) | ![Bottom, perspective](hardware/renders/board_bottom_3d.png) |
 
-* 4-layer, 51 × 37 mm, plugs into the Embedded Computers 56-pin dual header
+* 4-layer, 51 × 33 mm (same outline as the EC adapters), plugs into the Embedded Computers 56-pin dual header
 * 1.8 V LDO for the P30 core (as in EC's own P30 TSOP-56 adapter), I/O and VPP
   from the programmer's VCC
 * A1…A27 wired: every P30 density from 64 Mbit to 512 Mbit, plus Micron
