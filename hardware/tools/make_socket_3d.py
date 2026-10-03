@@ -12,6 +12,8 @@ No vendor model is published, so this is built from the HMILU drawing
     channels on the 26 mm faces, outside the base with a guide slot and pin
     on the 30 mm faces)
   * 4 coil springs on the towers, around the corner screw posts
+  * 2 clamp arms (levers on pins beside the IC holder) whose hook tips press
+    on the top of the chip along its 13 mm edges
   * 64 BeCu double-sided spring contacts (t0.1 x w0.17), 0.25 below the base
     onto the solid PCB pads
   * 4 locator pins (1 x dia 1.75 at the A1 corner, 3 x dia 1.45), 3.4 long
@@ -89,12 +91,24 @@ def build():
     base = base.cut(cq.Workplane("XY").polyline([(-BX, -BY + 2.5), (-BX, -BY), (-BX + 2.5, -BY)])
                     .close().extrude(TOWER))                       # A1 corner (footprint frame)
 
-    # ---- IC latches: two jaws over the long edges of the nest
-    latches = None
+    # ---- clamp arms: two levers that pivot on pins beside the IC holder; the
+    #      cover (via its slots) swings them open, the springs close them so
+    #      the hook tips press on the top of the chip along its long edges
+    arms = None
+    arm_pins = None
+    ic_top = NEST                                   # IC seated in the pocket, top flush with the holder
     for sy in (-1, 1):
-        y0, y1 = sorted((gy + sy * 5.1, gy + sy * 6.3))
-        j = box(gx - 3.5, y0, NEST, gx + 3.5, y1, NEST + 1.0)
-        latches = j if latches is None else latches.union(j)
+        yc = lambda d: gy + sy * d                  # distance from the IC centre line
+        hook = box(gx - 4.5, min(yc(3.7), yc(6.0)), ic_top + 0.05, gx + 4.5, max(yc(3.7), yc(6.0)), ic_top + 0.75)
+        hook = hook.edges("|X").edges(">Z").chamfer(0.3)
+        riser = box(gx - 4.5, min(yc(6.0), yc(7.0)), ic_top + 0.05, gx + 4.5, max(yc(6.0), yc(7.0)), ic_top + 3.4)
+        boss = (cq.Workplane("YZ").circle(0.9).extrude(9.0).translate((gx - 4.5, yc(7.6), ic_top + 1.6)))
+        cam = box(gx - 1.5, min(yc(6.8), yc(8.8)), ic_top + 2.6, gx + 1.5, max(yc(6.8), yc(8.8)), ic_top + 3.4)
+        arm = hook.union(riser).union(boss).union(cam)
+        arm = arm.cut(cq.Workplane("YZ").circle(0.45).extrude(9.0).translate((gx - 4.5, yc(7.6), ic_top + 1.6)))
+        arms = arm if arms is None else arms.union(arm)
+        pin = cq.Workplane("YZ").circle(0.42).extrude(11.0).translate((gx - 5.5, yc(7.6), ic_top + 1.6))
+        arm_pins = pin if arm_pins is None else arm_pins.union(pin)
 
     # ---- cover: top plate + side skirts
     cover = box(-BW / 2, -BH / 2, COVER_LO, BW / 2, BH / 2, COVER_TOP)
@@ -156,7 +170,8 @@ def build():
     black = cq.Color(0.10, 0.10, 0.10)
     asm = cq.Assembly(name="HMILU_BGA64-1.0-TP21NS")
     asm.add(base.union(locs), name="base", color=black)
-    asm.add(latches, name="ic_latches", color=cq.Color(0.16, 0.16, 0.16))
+    asm.add(arms, name="clamp_arms", color=cq.Color(0.20, 0.20, 0.20))
+    asm.add(arm_pins, name="arm_pins", color=cq.Color(0.75, 0.75, 0.78))
     asm.add(cover, name="cover", color=cq.Color(0.13, 0.13, 0.13))
     asm.add(pins, name="guide_pins", color=cq.Color(0.75, 0.75, 0.78))
     asm.add(springs, name="springs", color=cq.Color(0.80, 0.80, 0.83))
