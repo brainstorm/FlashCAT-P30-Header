@@ -166,6 +166,30 @@ def add_zone(b, net, layer, x0, y0, x1, y1, prio=0, clearance=0.2, min_w=0.15, n
     return z
 
 
+def header_marks(b, off=(0.0, 0.0)):
+    """Top-silk marks as on Embedded Computers' own adapters: an outline box
+    around each EC header and two solid triangles on the inner side of the
+    data header (J1), at its first and last row, pointing at it.  `off` is the
+    socket datum position (the routed board is centred on the sheet)."""
+    ox, oy = off
+    L = P.F_SilkS
+    for x_left in (D.J1_ANCHOR[0] - 2, D.J2_ANCHOR[0] - 2):
+        x0, x1 = x_left - 1.15, x_left + 2 + 1.15
+        y0, y1 = D.J1_ANCHOR[1] - 1.15, D.J1_ANCHOR[1] + 13 * D.EC_PITCH + 1.15
+        for a, c in (((x0, y0), (x1, y0)), ((x1, y0), (x1, y1)), ((x1, y1), (x0, y1)), ((x0, y1), (x0, y0))):
+            add_line(b, (a[0] + ox, a[1] + oy), (c[0] + ox, c[1] + oy), L, 0.15)
+    tip = D.J1_ANCHOR[0] + 1.15 + 0.3          # just outside J1's box
+    for row in (0, 13):
+        y = D.J1_ANCHOR[1] + row * D.EC_PITCH
+        t = P.PCB_SHAPE(b)
+        t.SetShape(P.SHAPE_T_POLY)
+        t.SetPolyPoints([V(tip + ox, y + oy), V(tip + 1.0 + ox, y - 0.6 + oy), V(tip + 1.0 + ox, y + 0.6 + oy)])
+        t.SetFilled(True)
+        t.SetWidth(mm(0.1))
+        t.SetLayer(L)
+        b.Add(t)
+
+
 def add_text(b, txt, x, y, layer, size=1.0, thick=0.15, mirror=False, rot=0, just=None):
     t = P.PCB_TEXT(b)
     t.SetText(txt)
@@ -325,6 +349,7 @@ def build():
     add_text(b, "FlashCAT P30 Easy BGA-64", 16.0, 0, F, 1.0, 0.15, rot=90)
     add_text(b, "rev C", -16.0, 0, F, 1.0, 0.15, rot=90)
     # header function hints (top view)
+    header_marks(b)
     add_text(b, "GND", -22.0, -15.1, F, 1.0, 0.15)
     add_text(b, "A0", 20.0, -15.1, F, 1.0, 0.15)
     # JLCPCB legend minimum: 1.0 mm text height, 0.15 mm line width
