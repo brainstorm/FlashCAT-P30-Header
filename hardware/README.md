@@ -142,7 +142,10 @@ schematic [`SCM_TSOP56_D.png`](https://www.embeddedcomputers.net/products/Parall
     right column and bottom row 3.75 mm.
   * 4 locator pins, NPTH at (±5.6, ±10.0) mm: Ø1.75 at the A1 corner
     (top-right), Ø1.45 for the other three, which polarises the socket.
-    Drilled 1.475 / 1.775 mm (drawing: +0.05/−0).
+    The drawing asks for +0.05/−0 on Ø1.4 / Ø1.7 pins; they are drilled
+    1.53 / 1.83 mm so the fab's −0.08 mm hole tolerance (JLCPCB: +0.13/−0.08)
+    can never make them smaller than the drawing's minimum (worst case
+    ~0.13 mm of play, well inside the Ø0.55 pads for the 0.17 mm contacts).
   * 4 × Ø2.00 mm NPTH fixing holes at (±10.6, ±11.1) mm for the socket screws.
   * Bottom-side courtyards keep parts 2.3 mm clear of the screw holes and
     1.3 mm clear of the locator pin tips (3.4 mm long, ~1.8 mm below the board).
@@ -211,13 +214,42 @@ assembler's preview.
 
 ## Fabrication spec
 
-4 layers, FR-4 1.6 mm, 1 oz outer copper · min track/space 0.127/0.127 mm (power 0.2–0.25 mm) ·
-vias 0.3/0.5 mm · any colour · **ENIG** (flat pads for the spring contacts;
-HASL leaves domed pads) · **via-in-pad, resin filled and copper capped**
-(JLCPCB "POFV" / epoxy filling + copper capping) for the vias in the socket
-pads. Open or tented vias there would leave a hole or dimple under a
-contact. The 1.0 mm socket grid leaves exactly one 0.127 mm track per
-channel.
+| Item | Value | Source |
+|---|---|---|
+| Layers / material | 4 layers, FR-4, 1.6 mm, 1 oz outer copper | design choice |
+| Track / space | min 0.127 / 0.127 mm (power 0.2–0.3 mm) | design choice; JLCPCB multilayer minimum is 0.09 / 0.09 mm [1] |
+| Vias | 0.3 mm drill / 0.5 mm pad, min via-to-via hole gap on the board 0.37 mm | JLCPCB: via ≥ 0.15/0.25 mm, via hole-to-hole ≥ 0.2 mm [1] |
+| Socket pads | 64 × Ø0.55 mm solid SMD pads, mask open, **no paste** | HMILU drawing ("64-Ø0.55 实心焊盘", contact tip detail) |
+| **Via-in-pad** | 23 socket pads have a 0.3/0.5 mm via in their centre: these must be **epoxy filled and copper capped** | design choice (see below); JLCPCB: "Vias can be placed within BGA pads using filled and plated-over vias" [1] |
+| Surface finish | **ENIG** | design choice: flat pads for the spring contacts (HASL leaves domed pads) |
+| Locator holes | NPTH 3 × Ø1.53, 1 × Ø1.83 mm | HMILU drawing (Ø1.45 / Ø1.75 +0.05/−0) + JLCPCB hole tolerance +0.13/−0.08 mm [1] |
+| Fixing holes | NPTH 4 × Ø2.00 mm | HMILU drawing |
+| Silkscreen | text ≥ 1.0 mm high, ≥ 0.15 mm stroke | JLCPCB legend minimum [1] |
+
+[1] JLCPCB PCB capabilities, https://jlcpcb.com/capabilities/pcb-capabilities
+(checked 2026-10-03).
+
+**Why via-in-pad (design choice, not from the HMILU drawing).** The drawing
+only defines the pad pattern. The pads are SMD, so balls that cannot escape
+on the top layer (inner balls, GND, decoupled power balls) need a via; it
+was put in the pad centre because the 1.0 mm grid has no room for
+dog-bone vias next to every inner pad. A filled and capped via leaves a flat
+pad; an open or merely tented via would leave a hole or dimple under the
+spring contact. Confirm with HMILU / your reseller that filled vias under
+the contacts are fine if in doubt.
+
+### Ordering checklist (JLCPCB)
+
+1. Upload `fab/flashcat_p30-gerbers.zip` (Gerbers + PTH/NPTH Excellon).
+2. 4 layers, 1.6 mm, **ENIG**, 1 oz outer copper; via size 0.3/0.5 mm.
+3. **Via covering: "Epoxy Filled & Capped"** (via-in-pad). JLCPCB's page
+   lists it as the default for 6-layer and above; for a 4-layer order check
+   that the option is offered and selected, otherwise add a remark or
+   choose a fab that does it. Do **not** order with tented or open vias.
+4. Leave the NPTH sizes as drawn (no "hole size compensation" remark needed).
+5. Assembly (optional): bottom side only, `fab/assembly/bom_jlc.csv` +
+   `cpl_jlc.csv`; the socket (U1) is not assembled, the headers are
+   hand-soldered. Check part rotations in the assembler's preview.
 
 ## Verification status (rev C)
 
