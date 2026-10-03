@@ -336,7 +336,10 @@ def write_socket_footprint():
                 f'\t\t(layers "F.Cu" "F.Mask")\n\t)\n')
     # locator pins and fixing holes (NPTH)
     for x, y, d in D.SOCKET_LOCATORS:
-        dd = round(d + 0.025, 3)      # drawing: +0.05/-0
+        # drawing: d +0.05/-0 for d-0.05 pins (side view: dia 1.4 / 1.7).  Drill at
+        # d + 0.08 so the fab's -0.08 mm hole tolerance (JLCPCB: +0.13/-0.08)
+        # still leaves at least d; worst case +0.13 gives ~0.13 mm play.
+        dd = round(d + 0.08, 3)
         out += (f'\t(pad "" np_thru_hole circle\n\t\t(at {fnum(x)} {fnum(y)})\n\t\t(size {fnum(dd)} {fnum(dd)})\n'
                 f'\t\t(drill {fnum(dd)})\n\t\t(layers "*.Cu" "*.Mask")\n\t)\n')
     for x, y in D.SOCKET_FIX_HOLES:

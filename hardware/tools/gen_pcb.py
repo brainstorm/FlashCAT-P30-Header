@@ -276,8 +276,8 @@ def build():
         if ref in D.DECAPS:
             _, p1, p2, _ = D.DECAPS[ref]
             p1, p2 = D.R(p1), D.R(p2)
-            fp.Reference().SetTextSize(V(0.8, 0.8))
-            fp.Reference().SetTextThickness(mm(0.12))
+            fp.Reference().SetTextSize(V(1.0, 1.0))
+            fp.Reference().SetTextThickness(mm(0.15))
             fp.Reference().SetTextAngleDegrees(0)
             cx, cy = (p1[0] + p2[0]) / 2, (p1[1] + p2[1]) / 2
             if abs(p1[0] - p2[0]) < 1e-6:     # vertical cap: text beside it
@@ -289,19 +289,22 @@ def build():
                 up = not others or all(o > cy for o in others)
                 fp.Reference().SetPosition(V(cx, cy + (-1.2 if up else 1.2)))
         elif ref.startswith(("C", "R")) or ref == "U2":
-            fp.Reference().SetTextSize(V(0.8, 0.8))
-            fp.Reference().SetTextThickness(mm(0.12))
+            fp.Reference().SetTextSize(V(1.0, 1.0))
+            fp.Reference().SetTextThickness(mm(0.15))
             fp.Reference().SetTextAngleDegrees(0)
             x, y, _, _ = PLACE[ref]
             fp.Reference().SetPosition(V(x, -15.8 if y < 0 else 15.8))
+            if ref == "U2":   # SOT-23-5 pads reach further: label in the gap towards C1
+                fp.Reference().SetPosition(V(x - 2.3, y))
+                fp.Reference().SetTextAngleDegrees(90)
         elif ref in ("J1", "J2"):
             x = -23.6 if ref == "J1" else 23.6
             fp.Reference().SetPosition(V(x - 0 if ref == "J1" else x, 15.2))
             fp.Reference().SetTextAngleDegrees(0)
         elif ref == "U1":
             fp.Reference().SetPosition(V(0, -13.3))
-            fp.Reference().SetTextSize(V(0.8, 0.8))
-            fp.Reference().SetTextThickness(mm(0.12))
+            fp.Reference().SetTextSize(V(1.0, 1.0))
+            fp.Reference().SetTextThickness(mm(0.15))
 
     x0, y0, x1, y1 = D.BOARD
     outline(b, x0, y0, x1, y1, r=1.0)
@@ -322,11 +325,12 @@ def build():
     add_text(b, "FlashCAT P30 Easy BGA-64", 16.0, 0, F, 1.0, 0.15, rot=90)
     add_text(b, "rev C", -16.0, 0, F, 1.0, 0.15, rot=90)
     # header function hints (top view)
-    add_text(b, "GND", -22.0, -15.0, F, 0.8, 0.12)
-    add_text(b, "A0", 20.0, -15.0, F, 0.8, 0.12)
-    add_text(b, "FlashCAT P30 Easy BGA-64 adapter", -16.6, 0, B, 0.8, 0.12, mirror=True, rot=90)
-    add_text(b, "HMILU BGA64-1.0-TP21NS socket", -15.0, 0, B, 0.8, 0.12, mirror=True, rot=90)
-    add_text(b, "EC 56-pin header  rev C  2026-10", 16.0, 0, B, 0.8, 0.12, mirror=True, rot=90)
+    add_text(b, "GND", -22.0, -15.1, F, 1.0, 0.15)
+    add_text(b, "A0", 20.0, -15.1, F, 1.0, 0.15)
+    # JLCPCB legend minimum: 1.0 mm text height, 0.15 mm line width
+    add_text(b, "FlashCAT P30 Easy BGA-64", -16.8, 0, B, 1.0, 0.15, mirror=True, rot=90)
+    add_text(b, "HMILU BGA64-1.0-TP21NS", -15.0, 0, B, 1.0, 0.15, mirror=True, rot=90)
+    add_text(b, "rev C  2026-10", 16.0, 0, B, 1.0, 0.15, mirror=True, rot=90)
 
     P.SaveBoard(PCB, b, True)
     print("wrote", PCB)
