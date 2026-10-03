@@ -133,7 +133,12 @@ schematic [`SCM_TSOP56_D.png`](https://www.embeddedcomputers.net/products/Parall
 * EC 56-pin header: two 2×14, 2.00 mm male headers mounted from the **bottom**
   (plastic spacer between adapter and programmer), left columns 42.00 mm
   apart, positions per [`EC_56P_HEADER.png`](https://www.embeddedcomputers.net/products/ParallelAdapters/EC_56P_HEADER.png). Top-silk "GND" and "A0" mark the
-  first pins; all silkscreen reads the same way as the programmer's.
+  first pins; all silkscreen reads the same way as the programmer's. As on
+  EC's own adapters (TSOP-56 Type-D, BGA-64 photos on their
+  [parallel adapters page](https://www.embeddedcomputers.net/products/ParallelAdapters/)),
+  each header has a top-silk outline box and two solid "◄" triangles sit on
+  the inner side of the data header (J1) at its first and last row, to line
+  the adapter up with the matching mark on the FlashcatUSB.
 * **Socket:** footprint per the **HMILU drawing 007-BGA-1.0-64-10X13-B-01
   rev A** ("PCB Pattern (TOP View)"), placed exactly as drawn:
   * 64 × Ø0.55 mm **solid SMD pads** for the solderless double-sided spring
@@ -285,7 +290,9 @@ top, front-section and isometric views: a base with four corner towers
 26 × 30 mm cover (10.8–17.5 mm, cover up) with an 18 × 14 mm funnel window,
 countersunk corner holes and a skirt in the middle of each side that drops
 between the towers (with the guide slot and pin on the 30 mm faces); coil
-springs on the towers around the corner screw posts; 64 contact blades down
+springs on the towers around the corner screw posts; the two clamp arms
+(levers on pins beside the IC holder, hook tips resting on the chip's 13 mm
+edges, as in the drawing's top and side views); 64 contact blades down
 to the pads and the four locator pins (3.4 mm). Hole, pin and contact
 positions come from `design.py`, so they match the footprint exactly;
 proportions the drawing does not dimension were measured from it. It is for
