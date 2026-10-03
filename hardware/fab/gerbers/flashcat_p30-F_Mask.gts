@@ -1,19 +1,19 @@
 %TF.GenerationSoftware,KiCad,Pcbnew,10.0.6-10.0.6~ubuntu26.04.1*%
-%TF.CreationDate,2026-10-02T21:59:32+02:00*%
+%TF.CreationDate,2026-10-03T10:34:17+02:00*%
 %TF.ProjectId,flashcat_p30,666c6173-6863-4617-945f-7033302e6b69,C*%
 %TF.SameCoordinates,Original*%
 %TF.FileFunction,Soldermask,Top*%
 %TF.FilePolarity,Negative*%
 %FSLAX46Y46*%
 G04 Gerber Fmt 4.6, Leading zero omitted, Abs format (unit mm)*
-G04 Created by KiCad (PCBNEW 10.0.6-10.0.6~ubuntu26.04.1) date 2026-10-02 21:59:32*
+G04 Created by KiCad (PCBNEW 10.0.6-10.0.6~ubuntu26.04.1) date 2026-10-03 10:34:17*
 %MOMM*%
 %LPD*%
 G01*
 G04 APERTURE LIST*
 %ADD10C,2.000000*%
-%ADD11C,1.475000*%
-%ADD12C,1.775000*%
+%ADD11C,1.530000*%
+%ADD12C,1.830000*%
 %ADD13C,0.550000*%
 %ADD14R,1.350000X1.350000*%
 %ADD15C,1.350000*%
