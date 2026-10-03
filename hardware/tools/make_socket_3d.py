@@ -64,12 +64,13 @@ def build():
     # ---- cover: 26 x 30 frame with a window over the nest, on 4 springs
     cover = box(BW, BH, COVER_T, 0, 0, Z_TOP - COVER_T)
     cover = cover.cut(box(17.0, 14.0, COVER_T, gx, gy, Z_TOP - COVER_T))
+    # springs sit in the counterbores of the 4 corner holes (cover guide posts)
     springs = None
-    for sx in (-1, 1):
-        for sy in (-1, 1):
-            s = (cq.Workplane("XY").circle(1.4).circle(1.0).extrude(Z_TOP - COVER_T - BASE_TOP)
-                 .translate((sx * 10.0, sy * 12.5, BASE_TOP)))
-            springs = s if springs is None else springs.union(s)
+    for p in D.SOCKET_FIX_HOLES:
+        x, y = fp2m(p)
+        s = (cq.Workplane("XY").circle(1.4).circle(1.0).extrude(Z_TOP - COVER_T - BASE_TOP + 1.0)
+             .translate((x, y, BASE_TOP - 1.0)))
+        springs = s if springs is None else springs.union(s)
 
     # ---- contacts: 0.17 x 0.10 blades from the PCB pad (0.25 below the base) up to the seat
     contacts = None
