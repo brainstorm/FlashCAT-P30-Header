@@ -247,11 +247,16 @@ become the master copy and the generators should not be re-run.
 ## 3D model of the socket
 
 No vendor model is published for the BGA64-1.0-TP21NS, so
-`tools/make_socket_3d.py` builds a simplified STEP from the HMILU drawing:
-26 × 30 mm body, 10.8 mm base, 17.5 mm overall with the cover up, a 10 × 13 mm
-IC nest, cover on four springs, 64 contact blades down to the pads, the four
-locator pins (3.4 mm) and the fixing holes. Contact and pin positions come
-from `design.py`, so they match the footprint exactly. It is for
+`tools/make_socket_3d.py` builds a simplified STEP from the HMILU drawing's
+top, front-section and isometric views: a base with four corner towers
+(3.3 mm slab, towers to 7.5 mm) and the 10 × 13 mm IC holder between them; a
+26 × 30 mm cover (10.8–17.5 mm, cover up) with an 18 × 14 mm funnel window,
+countersunk corner holes and a skirt in the middle of each side that drops
+between the towers (with the guide slot and pin on the 30 mm faces); coil
+springs on the towers around the corner screw posts; 64 contact blades down
+to the pads and the four locator pins (3.4 mm). Hole, pin and contact
+positions come from `design.py`, so they match the footprint exactly;
+proportions the drawing does not dimension were measured from it. It is for
 fit/clearance checks and renders, not a manufacturer-accurate model.
 
 ## References
